@@ -3,23 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_twibbon">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.majika.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/navigation_twibbon"
+        android:name="com.example.majika.ui.twibbon.TwibbonFragment"
+        android:label="@string/title_twibbon"
+        tools:layout="@layout/fragment_twibbon" />
+    <fragment
+        android:id="@+id/navigation_food"
+        android:name="com.example.majika.ui.food.FoodFragment"
+        android:label="@string/title_food"
+        tools:layout="@layout/fragment_food" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.majika.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_stores"
+        android:name="com.example.majika.ui.stores.StoresFragment"
+        android:label="@string/title_stores"
+        tools:layout="@layout/fragment_stores" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.majika.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_cart"
+        android:name="com.example.majika.ui.cart.CartFragment"
+        android:label="@string/title_cart"
+        tools:layout="@layout/fragment_cart" />
 </navigation>
