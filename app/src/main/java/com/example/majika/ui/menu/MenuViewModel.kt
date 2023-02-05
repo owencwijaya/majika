@@ -1,13 +1,13 @@
-package com.example.majika.ui.food
+package com.example.majika.ui.menu
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class FoodViewModel : ViewModel() {
+class MenuViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is food Fragment"
+        value = "This is menu Fragment"
     }
     val text: LiveData<String> = _text
 }

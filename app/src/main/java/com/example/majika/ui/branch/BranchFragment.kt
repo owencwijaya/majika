@@ -1,4 +1,4 @@
-package com.example.majika.ui.stores
+package com.example.majika.ui.branch
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.majika.databinding.FragmentStoresBinding
+import com.example.majika.databinding.FragmentBranchBinding
 
-class StoresFragment : Fragment() {
+class BranchFragment : Fragment() {
 
-    private var _binding: FragmentStoresBinding? = null
+    private var _binding: FragmentBranchBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class StoresFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val storesViewModel =
-            ViewModelProvider(this).get(StoresViewModel::class.java)
+        val branchViewModel =
+            ViewModelProvider(this).get(BranchViewModel::class.java)
 
-        _binding = FragmentStoresBinding.inflate(inflater, container, false)
+        _binding = FragmentBranchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textStores
-        storesViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textBranch
+        branchViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

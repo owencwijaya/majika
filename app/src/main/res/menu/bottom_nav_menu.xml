@@ -7,14 +7,14 @@
         android:title="@string/title_twibbon" />
 
     <item
-        android:id="@+id/navigation_food"
-        android:icon="@drawable/ic_food_black"
-        android:title="@string/title_food" />
+        android:id="@+id/navigation_menu"
+        android:icon="@drawable/ic_menu_black"
+        android:title="@string/title_menu" />
 
     <item
-        android:id="@+id/navigation_stores"
-        android:icon="@drawable/ic_stores_black"
-        android:title="@string/title_stores" />
+        android:id="@+id/navigation_branch"
+        android:icon="@drawable/ic_branch_black"
+        android:title="@string/title_branch" />
 
     <item
         android:id="@+id/navigation_cart"

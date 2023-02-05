@@ -11,16 +11,16 @@
         android:label="@string/title_twibbon"
         tools:layout="@layout/fragment_twibbon" />
     <fragment
-        android:id="@+id/navigation_food"
-        android:name="com.example.majika.ui.food.FoodFragment"
-        android:label="@string/title_food"
-        tools:layout="@layout/fragment_food" />
+        android:id="@+id/navigation_menu"
+        android:name="com.example.majika.ui.menu.MenuFragment"
+        android:label="@string/title_menu"
+        tools:layout="@layout/fragment_menu" />
 
     <fragment
-        android:id="@+id/navigation_stores"
-        android:name="com.example.majika.ui.stores.StoresFragment"
-        android:label="@string/title_stores"
-        tools:layout="@layout/fragment_stores" />
+        android:id="@+id/navigation_branch"
+        android:name="com.example.majika.ui.branch.BranchFragment"
+        android:label="@string/title_branch"
+        tools:layout="@layout/fragment_branch" />
 
     <fragment
         android:id="@+id/navigation_cart"
