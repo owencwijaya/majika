@@ -26,9 +26,9 @@ class NetworkConfig {
             BuildConfig.PORT,
             BuildConfig.API_VERSION
         )
-//        val endpoint = "http://192.168.100.158:3000/v1/"
+
         val retrofitClient = Retrofit.Builder()
-            .baseUrl(endpoint) // SEMENTARA DI HARD CODE DULU
+            .baseUrl(endpoint)
             .client(getInterceptor())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
