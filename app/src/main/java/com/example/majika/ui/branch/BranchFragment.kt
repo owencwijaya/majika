@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.databinding.FragmentBranchBinding
 
 class BranchFragment : Fragment() {
@@ -28,9 +29,9 @@ class BranchFragment : Fragment() {
         _binding = FragmentBranchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textBranch
-        branchViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val branchRv: RecyclerView = binding.branchRv
+        branchViewModel.branchList.observe(viewLifecycleOwner) {
+            branchRv.adapter = BranchAdapter(it.branchList!!)
         }
         return root
     }
