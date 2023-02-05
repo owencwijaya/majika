@@ -1,9 +1,5 @@
 #Backend app
 backendpbd*
-
-#environment
-.env
-
 # Built application files
 *.apk
 *.ap_
