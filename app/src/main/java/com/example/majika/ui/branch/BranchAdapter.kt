@@ -1,5 +1,6 @@
 package com.example.majika.ui.branch
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -12,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.R
 import com.example.majika.model.Branch
 
-class BranchAdapter(val data: List<Branch>) : RecyclerView.Adapter<BranchAdapter.Holder>() {
-
+class BranchAdapter(val data: List<Branch>, val context: Context) : RecyclerView.Adapter<BranchAdapter.Holder>() {
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mapsButton: ImageButton = itemView.findViewById(R.id.maps_button)
         fun bind(branch: Branch?) {
@@ -40,18 +40,14 @@ class BranchAdapter(val data: List<Branch>) : RecyclerView.Adapter<BranchAdapter
         holder.bind(branch)
 
         holder.mapsButton.setOnClickListener {
-            val uri = String.format("google.streeview:cbll=%f,%f", branch.latitude, branch.longitude)
+            val uri = String.format("geo:%f,%f", branch.latitude, branch.longitude)
 
             val gmmIntentUri = Uri.parse(uri)
 
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
             mapIntent.setPackage("com.google.android.apps.maps")
 
-            if (mapIntent.resolveActivity(holder.itemView.context.getPackageManager()) != null) {
-                holder.itemView.context.startActivity(mapIntent)
-            } else {
-                Toast.makeText(holder.itemView.context, "Google Maps not installed", Toast.LENGTH_SHORT).show()
-            }
+            context.startActivity(mapIntent)
 
         }
     }

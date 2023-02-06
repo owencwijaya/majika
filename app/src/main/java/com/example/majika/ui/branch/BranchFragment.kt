@@ -1,5 +1,6 @@
 package com.example.majika.ui.branch
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,7 @@ class BranchFragment : Fragment() {
 
         val branchRv: RecyclerView = binding.branchRv
         branchViewModel.branchList.observe(viewLifecycleOwner) {
-            branchRv.adapter = BranchAdapter(it.branchList!!)
+            branchRv.adapter = BranchAdapter(it.branchList!!, activity as Context)
         }
         return root
     }
