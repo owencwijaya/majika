@@ -20,9 +20,9 @@ data class Branch(
 	val popularFood: String? = null,
 
 	@SerializedName("latitude")
-	val latitude: Any? = null,
+	val latitude: Float? = null,
 
 	@SerializedName("longitude")
-	val longitude: Any? = null
+	val longitude: Float? = null
 )
 
