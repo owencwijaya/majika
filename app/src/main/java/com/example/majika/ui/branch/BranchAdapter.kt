@@ -19,8 +19,7 @@ class BranchAdapter(val data: List<Branch>, val context: Context) : RecyclerView
         fun bind(branch: Branch?) {
             branch?.let {
                 itemView.findViewById<TextView>(R.id.name).text = it.name
-                itemView.findViewById<TextView>(R.id.popular_food).text =
-                    "Popular food: " + it.popularFood
+                itemView.findViewById<TextView>(R.id.popular_food).text = it.popularFood
                 itemView.findViewById<TextView>(R.id.address).text = it.address
                 itemView.findViewById<TextView>(R.id.contact_person).text = it.contactPerson
                 itemView.findViewById<TextView>(R.id.phone_number).text = it.phoneNumber

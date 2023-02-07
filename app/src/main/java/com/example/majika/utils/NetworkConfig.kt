@@ -3,6 +3,7 @@ package com.example.majika.utils
 import com.example.majika.BuildConfig
 import com.example.majika.model.Branch
 import com.example.majika.model.BranchList
+import com.example.majika.model.MenuList
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -33,13 +34,25 @@ class NetworkConfig {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        return retrofitClient;
+        return retrofitClient
     }
 
-    fun getService() = getRetrofit().create(Branches::class.java)
+    fun getBranchService() = getRetrofit().create(Branches::class.java)
+    fun getMenuService() = getRetrofit().create(Menu::class.java)
 }
 
 interface Branches{
     @GET("branch")
-    fun getBranch(): Call<BranchList>
+    fun getAll(): Call<BranchList>
+}
+
+interface Menu{
+    @GET("menu")
+    fun getAll(): Call<MenuList>
+
+    @GET("menu/food")
+    fun getFood(): Call<MenuList>
+
+    @GET("menu/drink")
+    fun getDrink(): Call<MenuList>
 }
