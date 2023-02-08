@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.majika.model.CartItem
-import java.util.List;
+
 
 @Dao
 interface CartItemDao {

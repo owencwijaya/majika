@@ -9,3 +9,7 @@ import com.example.majika.model.dao.CartItemDao
 abstract class RoomConfig:RoomDatabase(){
     abstract fun userDao(): CartItemDao
 }
+
+class RoomClient {
+
+}

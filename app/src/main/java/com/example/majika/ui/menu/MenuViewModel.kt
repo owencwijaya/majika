@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.majika.model.MenuList
-import com.example.majika.utils.RetrofitConfig
+import com.example.majika.utils.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,7 +12,7 @@ import retrofit2.Response
 class MenuViewModel : ViewModel() {
 
     private val _menuList = MutableLiveData<MenuList>().apply {
-        RetrofitConfig().getMenuService().getAll().enqueue(
+        RetrofitClient.getMenuService.getAll().enqueue(
             object: Callback<MenuList> {
                 override fun onFailure(call : Call<MenuList>, t: Throwable) {
                     t.printStackTrace()

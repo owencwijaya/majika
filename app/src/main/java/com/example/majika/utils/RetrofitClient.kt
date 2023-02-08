@@ -10,7 +10,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-class RetrofitConfig {
+object RetrofitClient {
+
+    private var endpoint = String.format("http://%s:%s/%s/",
+        BuildConfig.IP_ADDRESS,
+        BuildConfig.PORT,
+        BuildConfig.API_VERSION
+    )
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(endpoint)
+        .client(getInterceptor())
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
     fun getInterceptor() : OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
@@ -20,24 +33,8 @@ class RetrofitConfig {
         return HttpClient
     }
 
-    fun getRetrofit() : Retrofit {
-        val endpoint = String.format("http://%s:%s/%s/",
-            BuildConfig.IP_ADDRESS,
-            BuildConfig.PORT,
-            BuildConfig.API_VERSION
-        )
-
-        val retrofitClient = Retrofit.Builder()
-            .baseUrl(endpoint)
-            .client(getInterceptor())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        return retrofitClient
-    }
-
-    fun getBranchService() = getRetrofit().create(Branches::class.java)
-    fun getMenuService() = getRetrofit().create(Menu::class.java)
+    val getBranchService = retrofit.create(Branches::class.java)
+    val getMenuService = retrofit.create(Menu::class.java)
 }
 
 interface Branches{

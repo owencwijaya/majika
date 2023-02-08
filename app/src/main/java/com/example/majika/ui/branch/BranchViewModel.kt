@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.majika.model.BranchList
-import com.example.majika.utils.RetrofitConfig
+import com.example.majika.utils.RetrofitClient
 
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +14,7 @@ import retrofit2.Response
 class BranchViewModel : ViewModel() {
 
     private val _branchList = MutableLiveData<BranchList>().apply {
-        RetrofitConfig().getBranchService().getAll().enqueue(
+        RetrofitClient.getBranchService.getAll().enqueue(
             object: Callback<BranchList> {
                 override fun onFailure(call : Call<BranchList>, t: Throwable) {
                     t.printStackTrace()
