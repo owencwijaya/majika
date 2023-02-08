@@ -1,7 +1,6 @@
 package com.example.majika.utils
 
 import com.example.majika.BuildConfig
-import com.example.majika.model.Branch
 import com.example.majika.model.BranchList
 import com.example.majika.model.MenuList
 import okhttp3.OkHttpClient
@@ -11,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-class NetworkConfig {
+class RetrofitConfig {
     fun getInterceptor() : OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY

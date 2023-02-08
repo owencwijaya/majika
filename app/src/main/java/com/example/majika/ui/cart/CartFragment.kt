@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.majika.databinding.FragmentCartBinding
-import com.example.majika.db.AppDatabase
+import com.example.majika.utils.RoomConfig
 
 class CartFragment : Fragment() {
-    private lateinit var db: AppDatabase
+    private lateinit var db: RoomConfig
     private var _binding: FragmentCartBinding? = null
 
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = Room.databaseBuilder(this.requireContext(), AppDatabase::class.java, "DB").build()
+        db = Room.databaseBuilder(this.requireContext(), RoomConfig::class.java, "DB").build()
     }
     override fun onCreateView(
         inflater: LayoutInflater,
