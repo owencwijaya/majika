@@ -11,7 +11,7 @@ import retrofit2.Response
 
 class MenuViewModel : ViewModel() {
 
-    private val _menuList = MutableLiveData<MenuList>().apply {
+    var _menuList = MutableLiveData<MenuList>().apply {
         RetrofitClient.getMenuService.getAll().enqueue(
             object: Callback<MenuList> {
                 override fun onFailure(call : Call<MenuList>, t: Throwable) {
@@ -27,5 +27,6 @@ class MenuViewModel : ViewModel() {
             }
         )
     }
+
     val menuList: LiveData<MenuList> = _menuList
 }

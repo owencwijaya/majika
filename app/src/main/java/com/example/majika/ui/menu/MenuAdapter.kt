@@ -1,6 +1,7 @@
 package com.example.majika.ui.menu
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.example.majika.R
 import com.example.majika.model.Menu
 
 class MenuAdapter(val data: List<Menu>, val context: Context) : RecyclerView.Adapter<MenuAdapter.Holder>() {
+    private var menuData: List<Menu> = data
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(menu: Menu?) {
             menu?.let {
@@ -20,6 +22,16 @@ class MenuAdapter(val data: List<Menu>, val context: Context) : RecyclerView.Ada
                 itemView.findViewById<TextView>(R.id.description).text = it.description
             }
         }
+    }
+
+    fun search(query: String) {
+        val filteredList = data.filter {
+            it.name!!.contains(query, true)
+        }
+
+        menuData = emptyList()
+        menuData = filteredList
+        Log.d("MenuAdapter", menuData.toString())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
