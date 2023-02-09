@@ -7,6 +7,7 @@
     tools:context=".ui.cart.CartFragment">
 
     <LinearLayout
+        android:id="@+id/recycler_container"
         android:layout_width="match_parent"
         android:layout_height="617dp"
         android:orientation="vertical"
@@ -17,7 +18,28 @@
             android:id="@+id/cartRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom = "32dp"
-        />
+            android:layout_marginBottom="32dp" />
+
+
     </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/payment_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+            android:id = "@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="24sp"
+            android:text="Total: "
+            android:elevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardElevation="8dp"
+        />
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
