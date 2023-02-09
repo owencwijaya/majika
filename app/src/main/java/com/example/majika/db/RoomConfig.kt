@@ -20,7 +20,9 @@ abstract class RoomConfig:RoomDatabase(){
             INSTANCE?.let {database -> scope.launch {
                 // Populate here if needed
                 var cartItemDao = database.cartItemDao()
-                var cartItemEntity = CartItemEntity(name = "Makanan 1", id = 3, price = 50000, quantity = 3, currency = "Rp")
+                var cartItemEntity = CartItemEntity(name = "Makanan 1", price = 50000, quantity = 3, currency = "Rp")
+                cartItemDao.insert(cartItemEntity)
+                cartItemEntity = CartItemEntity(name = "Makanan 2", price = 50000, quantity = 3, currency = "Rp")
                 cartItemDao.insert(cartItemEntity)
             }}
         }

@@ -24,7 +24,8 @@ class CartFragment : Fragment() {
 
     private val binding get() = _binding!!
     val cartViewModel: CartViewModel by viewModels { CartViewModelFactory((this.requireActivity().application as MajikaApplication).repository) }
-
+    private lateinit var adapter: CartAdapter
+    private lateinit var cartRecyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -35,16 +36,17 @@ class CartFragment : Fragment() {
     ) : View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val cartRecyclerView: RecyclerView = binding.cartRecyclerView
-        val adapter = CartAdapter()
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        adapter = CartAdapter()
+        cartRecyclerView = binding.cartRecyclerView
         cartRecyclerView.adapter = adapter
-        var cartItemEntity = CartItemEntity(name = "Makanan 1", id = 3, price = 50000, quantity = 3, currency = "Rp")
-        cartViewModel.insert(cartItemEntity)
-        System.out.println(cartViewModel.cartItems.value?.get(0)?.name)
-        cartViewModel.cartItems.observe(viewLifecycleOwner) { items ->
+        cartRecyclerView.layoutManager = LinearLayoutManager(this.requireContext());
+        cartViewModel.cartItems.observe(this.viewLifecycleOwner) { items ->
             items.let { adapter.submitList(it) }
         }
-        return root
     }
 
     override fun onDestroyView() {
