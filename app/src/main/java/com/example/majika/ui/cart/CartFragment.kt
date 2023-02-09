@@ -4,36 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
+import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.majika.DataRepository
+import com.example.majika.MajikaApplication
 import com.example.majika.databinding.FragmentCartBinding
-import com.example.majika.utils.RoomConfig
+import com.example.majika.db.RoomConfig
+import com.example.majika.db.dao.CartItemDao
+import com.example.majika.db.entity.CartItemEntity
 
 class CartFragment : Fragment() {
-    private lateinit var db: RoomConfig
     private var _binding: FragmentCartBinding? = null
 
     private val binding get() = _binding!!
+    val cartViewModel: CartViewModel by viewModels { CartViewModelFactory((this.requireActivity().application as MajikaApplication).repository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = Room.databaseBuilder(this.requireContext(), RoomConfig::class.java, "DB").build()
     }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) : View {
-        val cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val textView: TextView = binding.textCart
-        cartViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val cartRecyclerView: RecyclerView = binding.cartRecyclerView
+        val adapter = CartAdapter()
+        cartRecyclerView.adapter = adapter
+        var cartItemEntity = CartItemEntity(name = "Makanan 1", id = 3, price = 50000, quantity = 3, currency = "Rp")
+        cartViewModel.insert(cartItemEntity)
+        System.out.println(cartViewModel.cartItems.value?.get(0)?.name)
+        cartViewModel.cartItems.observe(viewLifecycleOwner) { items ->
+            items.let { adapter.submitList(it) }
         }
         return root
     }

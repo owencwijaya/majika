@@ -1,6 +1,7 @@
 package com.example.majika
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -8,14 +9,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.majika.databinding.ActivityMainBinding
+import com.example.majika.ui.cart.CartViewModel
+import com.example.majika.ui.cart.CartViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
+    private val cartViewModel: CartViewModel by viewModels{CartViewModelFactory((application as MajikaApplication).repository)}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
