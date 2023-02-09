@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!-- this is used to set the menu for the mobile_navigation-->
+<!--if the design preview looks off, ignore it. we are going to use this menu for mobile_navigation -->
     <item
-        android:id="@+id/navigation_twibbon"
+        android:id="@+id/twibbonFragment"
         android:icon="@drawable/ic_twibbon_black"
         android:title="@string/title_twibbon" />
 
     <item
-        android:id="@+id/navigation_menu"
+        android:id="@+id/menuFragment"
         android:icon="@drawable/ic_menu_black"
         android:title="@string/title_menu" />
 
     <item
-        android:id="@+id/navigation_branch"
+        android:id="@+id/branchFragment"
         android:icon="@drawable/ic_branch_black"
         android:title="@string/title_branch" />
 
     <item
-        android:id="@+id/navigation_cart"
+        android:id="@+id/cartFragment"
         android:icon="@drawable/ic_cart_black"
         android:title="@string/title_cart" />
 </menu>

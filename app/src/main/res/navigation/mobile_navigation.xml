@@ -3,28 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_twibbon">
-
+    app:startDestination="@id/branchFragment">
     <fragment
-        android:id="@+id/navigation_twibbon"
+        android:id="@+id/branchFragment"
+        android:name="com.example.majika.ui.branch.BranchFragment"
+        android:label="fragment_branch"
+        tools:layout="@layout/fragment_branch" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.majika.ui.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/twibbonFragment"
         android:name="com.example.majika.ui.twibbon.TwibbonFragment"
-        android:label="@string/title_twibbon"
+        android:label="fragment_twibbon"
         tools:layout="@layout/fragment_twibbon" />
     <fragment
-        android:id="@+id/navigation_menu"
-        android:name="com.example.majika.ui.menu.MenuFragment"
-        android:label="@string/title_menu"
-        tools:layout="@layout/fragment_menu" />
-
-    <fragment
-        android:id="@+id/navigation_branch"
-        android:name="com.example.majika.ui.branch.BranchFragment"
-        android:label="@string/title_branch"
-        tools:layout="@layout/fragment_branch" />
-
-    <fragment
-        android:id="@+id/navigation_cart"
+        android:id="@+id/cartFragment"
         android:name="com.example.majika.ui.cart.CartFragment"
-        android:label="@string/title_cart"
+        android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
 </navigation>

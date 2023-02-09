@@ -11,6 +11,10 @@ import com.example.majika.db.entity.CartItemEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
+
+// Data repository is used when you need to access the database.
+// So you cannot access the Dao directly, you need to access it through data Repository.
+// It's just good practice, nothing else.
 // Kalo nambah dao, inject ke param, kalo ada get, get di awal
 public class DataRepository(private val cartItemDao: CartItemDao) {
     val cartItems: Flow<List<CartItemEntity>> = cartItemDao.getAll()

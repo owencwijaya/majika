@@ -40,14 +40,18 @@ class MenuFragment : Fragment() {
         val menuViewModel =
             ViewModelProvider(this).get(MenuViewModel::class.java)
 
+//        set view in the activity
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+//        recycle view for menu
         val menuRv: RecyclerView = binding.menuRv
         menuViewModel.menuList.observe(viewLifecycleOwner) {
             menuRv.adapter = MenuAdapter(it.menuList!!, activity as Context, cartViewModel)
             fragmentMenuData = it.menuList
         }
+
 
 
         val menuSearch: SearchView = binding.menuSearch

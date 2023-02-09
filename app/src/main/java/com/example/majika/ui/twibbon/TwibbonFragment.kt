@@ -1,6 +1,8 @@
 package com.example.majika.ui.twibbon
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,15 +30,17 @@ class TwibbonFragment : Fragment() {
         _binding = FragmentTwibbonBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textTwibbon
-        twibbonViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    fun takePhoto(view: View){
+//        start an intent to capture image
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
     }
 }
