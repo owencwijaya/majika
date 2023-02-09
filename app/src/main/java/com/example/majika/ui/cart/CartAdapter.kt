@@ -21,7 +21,6 @@ class CartAdapter : ListAdapter<CartItemEntity, CartAdapter.CartViewHolder>(Cart
     }
     class CartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(cartItemEntity: CartItemEntity?) {
-            System.err.println("SUDAH SAMPE BINDING")
             cartItemEntity?.let{
                 itemView.findViewById<TextView>(R.id.name_cart).text = it.name
                 itemView.findViewById<TextView>(R.id.price_cart).text = it.currency + " " + it.price
