@@ -86,5 +86,29 @@ class MenuAdapter(val data: List<Menu>, val context: Context, val cartViewModel:
                 }
             }
         }
+
+        holder.reduceButton.setOnClickListener() {
+            var cartItem = CartItemEntity(
+                name = menu.name!!,
+                price = menu.price!!,
+                currency = menu.currency!!,
+                quantity = 1
+            )
+
+            val entity: LiveData<List<CartItemEntity>> = cartViewModel.getEntity(cartItem)
+
+            entity.observeOnce(context as AppCompatActivity) {
+                if (it[0].quantity == 1) {
+                    cartViewModel.delete(it[0])
+                    holder.quantity.text = "0"
+                    holder.quantity.visibility = View.INVISIBLE
+                    holder.reduceButton.visibility = View.INVISIBLE
+                } else {
+                    val newQuantity = it[0].quantity!! - 1
+                    cartViewModel.updateQuantity(cartItem, newQuantity)
+                    holder.quantity.text = newQuantity.toString()
+                }
+            }
+        }
     }
 }
