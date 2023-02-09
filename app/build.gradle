@@ -49,6 +49,13 @@ android {
 }
 
 dependencies {
+
+//    used to request permission
+    def fragment_version = "1.5.5"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+
+
     def room_version = "2.5.0"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
