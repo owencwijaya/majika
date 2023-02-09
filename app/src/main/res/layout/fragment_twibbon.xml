@@ -2,21 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/capturePhotoButton"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.twibbon.TwibbonFragment">
 
-    <TextView
-        android:id="@+id/text_twibbon"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/cameraPreviewView"
+        android:contentDescription="cameraPreview"
+        android:layout_width="216dp"
+        android:layout_height="229dp"
+        app:layout_constraintBottom_toTopOf="@+id/captureButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/captureButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:layout_marginBottom="60dp"
+        android:onClick="takePhoto"
+        android:text="capture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/cameraPreviewView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
