@@ -13,10 +13,25 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import com.example.majika.MajikaApplication
 
 class CartViewModel(private val repository: DataRepository) : ViewModel() {
-    val cartItems: LiveData<List<CartItemEntity>> = repository.cartItems.asLiveData()
+    var cartItems: LiveData<List<CartItemEntity>> = repository.cartItems.asLiveData()
+
     // Contoh kode insert or any operation to db
     fun insert(cartItem: CartItemEntity) = viewModelScope.launch {
         repository.insert(cartItem)
+    }
+
+    fun delete(cartItem: CartItemEntity) = viewModelScope.launch {
+        repository.delete(cartItem)
+    }
+    fun getEntity(cartItem: CartItemEntity) : LiveData<List<CartItemEntity>> {
+        var temp: LiveData<List<CartItemEntity>> = MutableLiveData()
+        viewModelScope.launch {
+           temp = repository.getEntity(cartItem)
+        }
+        return temp
+    }
+    fun updateQuantity(cartItem: CartItemEntity, quantity: Int) = viewModelScope.launch {
+        repository.updateQuantity(cartItem, quantity)
     }
 }
 

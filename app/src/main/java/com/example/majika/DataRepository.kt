@@ -1,6 +1,7 @@
 package com.example.majika
 
 import android.app.Application
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,5 +21,21 @@ public class DataRepository(private val cartItemDao: CartItemDao) {
         cartItemDao.insert(cartItem)
     }
 
-    // TODO Tambah fungsi lain
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun delete(cartItem: CartItemEntity){
+        cartItemDao.delete(cartItem)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getEntity(cartItem: CartItemEntity) : LiveData<List<CartItemEntity>>{
+        return cartItemDao.getEntity(cartItem.name, cartItem.price, cartItem.currency)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateQuantity(cartItem: CartItemEntity, quantity: Int){
+        cartItemDao.updateQuantity(quantity, cartItem.name, cartItem.price, cartItem.currency)
+    }
 }

@@ -75,6 +75,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:scaleType="centerInside"
+                    android:visibility="invisible"
                     app:srcCompat="@drawable/ic_reduce"
                 />
 
@@ -83,7 +84,7 @@
                     android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="99"
+                    android:visibility="invisible"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 

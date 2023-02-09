@@ -5,19 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.majika.DataRepository
 import com.example.majika.MajikaApplication
 import com.example.majika.databinding.FragmentCartBinding
-import com.example.majika.db.RoomConfig
-import com.example.majika.db.dao.CartItemDao
-import com.example.majika.db.entity.CartItemEntity
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
