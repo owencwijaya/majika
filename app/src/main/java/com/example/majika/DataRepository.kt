@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.Flow
 // Kalo nambah dao, inject ke param, kalo ada get, get di awal
 public class DataRepository(private val cartItemDao: CartItemDao) {
     val cartItems: Flow<List<CartItemEntity>> = cartItemDao.getAll()
+    val totalPrice: Flow<Int> = cartItemDao.getTotalPrice()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

@@ -39,6 +39,9 @@ class CartFragment : Fragment() {
         cartViewModel.cartItems.observe(this.viewLifecycleOwner) { items ->
             items.let { adapter.submitList(it) }
         }
+        cartViewModel.totalPrice.observe(this.viewLifecycleOwner) { price ->
+            binding.totalPrice.text = "Total: IDR " + price.toString()
+        }
     }
 
     override fun onDestroyView() {

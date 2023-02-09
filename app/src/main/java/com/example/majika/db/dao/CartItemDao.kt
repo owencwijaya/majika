@@ -17,6 +17,8 @@ interface CartItemDao {
     @Query("UPDATE cart_item SET quantity = :quantity WHERE name LIKE :name AND price = :price AND currency LIKE :currency")
     suspend fun updateQuantity(quantity: Int, name: String, price: Int, currency: String)
 
+    @Query("SELECT SUM(price * quantity) FROM cart_item")
+    fun getTotalPrice(): Flow<Int>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(cartItemEntity: CartItemEntity)
 

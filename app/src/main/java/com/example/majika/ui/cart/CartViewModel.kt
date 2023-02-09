@@ -14,6 +14,7 @@ import com.example.majika.MajikaApplication
 
 class CartViewModel(private val repository: DataRepository) : ViewModel() {
     var cartItems: LiveData<List<CartItemEntity>> = repository.cartItems.asLiveData()
+    var totalPrice: LiveData<Int> = repository.totalPrice.asLiveData()
 
     // Contoh kode insert or any operation to db
     fun insert(cartItem: CartItemEntity) = viewModelScope.launch {
