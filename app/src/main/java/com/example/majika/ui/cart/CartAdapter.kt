@@ -34,9 +34,6 @@ class CartAdapter(val cartViewModel: CartViewModel) : ListAdapter<CartItemEntity
             cartViewModel.updateQuantity(current, newQuantity)
             if (newQuantity == 0) {
                 cartViewModel.delete(current)
-                holder.quantity.text = "0"
-                holder.quantity.visibility = View.INVISIBLE
-                holder.reduceButton.visibility = View.INVISIBLE
             }
         }
     }

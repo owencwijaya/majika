@@ -34,7 +34,8 @@ class BranchFragment : Fragment() {
         val branchRv: RecyclerView = binding.branchRv
         branchRv.layoutManager = LinearLayoutManager(this.requireContext())
         branchViewModel.branchList.observe(viewLifecycleOwner) {
-            branchRv.adapter = BranchAdapter(it.branchList!!, activity as Context)
+            branchRv.adapter = BranchAdapter(it.branchList!!.sortedWith(compareBy({it.name})), activity as Context)
+            binding.branchCount.text = branchRv.adapter!!.itemCount.toString() + " branches"
         }
         return root
     }
