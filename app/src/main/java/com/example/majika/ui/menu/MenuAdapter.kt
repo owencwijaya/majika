@@ -28,6 +28,7 @@ class MenuAdapter(val data: List<Menu>, val context: Context, val cartViewModel:
         var addButton: ImageButton = itemView.findViewById(R.id.add_button)
         var reduceButton: ImageButton = itemView.findViewById(R.id.reduce_button)
         var quantity: TextView = itemView.findViewById(R.id.quantity)
+
         fun bind(menu: Menu?) {
             menu?.let {
                 itemView.findViewById<TextView>(R.id.name).text = it.name
@@ -101,8 +102,8 @@ class MenuAdapter(val data: List<Menu>, val context: Context, val cartViewModel:
                 if (it[0].quantity == 1) {
                     cartViewModel.delete(it[0])
                     holder.quantity.text = "0"
-                    holder.quantity.visibility = View.INVISIBLE
-                    holder.reduceButton.visibility = View.INVISIBLE
+                    holder.quantity.visibility = View.GONE
+                    holder.reduceButton.visibility = View.GONE
                 } else {
                     val newQuantity = it[0].quantity!! - 1
                     cartViewModel.updateQuantity(cartItem, newQuantity)

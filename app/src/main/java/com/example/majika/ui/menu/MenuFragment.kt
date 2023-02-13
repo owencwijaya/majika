@@ -1,29 +1,22 @@
 package com.example.majika.ui.menu
 
-import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.SearchView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import androidx.room.RoomDatabase
 import com.example.majika.MajikaApplication
 import com.example.majika.databinding.FragmentMenuBinding
-import com.example.majika.db.RoomConfig
 import com.example.majika.model.Menu
-import com.example.majika.model.MenuList
 import com.example.majika.ui.cart.CartViewModel
 import com.example.majika.ui.cart.CartViewModelFactory
 
@@ -82,6 +75,16 @@ class MenuFragment : Fragment() {
                 return false
             }
         })
+
+        val parentLayout: LinearLayout = binding.parentLayout
+        val searchLayout: LinearLayout = binding.searchLayout
+
+        if (this.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            parentLayout.orientation = LinearLayout.HORIZONTAL
+        } else {
+            parentLayout.orientation = LinearLayout.VERTICAL
+            (searchLayout.layoutParams as LinearLayout.LayoutParams).weight = 10.0f
+        }
         return root
     }
 
@@ -92,6 +95,6 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.setTitle("Menu")
+        (activity as AppCompatActivity).supportActionBar?.title = "Menu"
     }
 }
