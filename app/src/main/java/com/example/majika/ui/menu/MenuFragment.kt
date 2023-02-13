@@ -2,13 +2,19 @@ package com.example.majika.ui.menu
 
 import android.content.Context
 import android.content.res.Configuration
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,7 +26,7 @@ import com.example.majika.model.Menu
 import com.example.majika.ui.cart.CartViewModel
 import com.example.majika.ui.cart.CartViewModelFactory
 
-class MenuFragment : Fragment() {
+class MenuFragment : Fragment(), SensorEventListener {
 
     private var _binding: FragmentMenuBinding? = null
     val cartViewModel: CartViewModel by viewModels { CartViewModelFactory((this.requireActivity().application as MajikaApplication).repository) }
@@ -29,6 +35,9 @@ class MenuFragment : Fragment() {
     private val binding get() = _binding!!
     private var fragmentFoodData: List<Menu> = emptyList()
     private var fragmentDrinksData: List<Menu> = emptyList()
+
+    private lateinit var sensorManager : SensorManager
+    private var temperature: Sensor? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,9 +94,30 @@ class MenuFragment : Fragment() {
             parentLayout.orientation = LinearLayout.VERTICAL
             (searchLayout.layoutParams as LinearLayout.LayoutParams).weight = 10.0f
         }
+
         return root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        sensorManager = this.requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        // untuk cek apakah ada ambient temperature sensor
+        val deviceSensors: List<Sensor> = sensorManager.getSensorList(Sensor.TYPE_AMBIENT_TEMPERATURE)
+        Log.v("Total sensors: ", deviceSensors.size.toString())
+
+        deviceSensors.forEach{
+            Log.v("Sensor name",""+it)
+        }
+
+        temperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)
+
+        if (temperature != null){
+            sensorManager.registerListener(this, temperature, SensorManager.SENSOR_DELAY_NORMAL)
+        } else {
+            Toast.makeText(this.requireActivity(), "No temperature sensor detected!", Toast.LENGTH_SHORT).show()
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -96,5 +126,25 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Menu"
+    }
+
+    override fun onSensorChanged(event: SensorEvent){
+        val temp = event.values[0]
+        (activity as AppCompatActivity).supportActionBar?.title = "Menu - $temp"
+        Toast.makeText(activity, "Temperature: $temp", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sensorManager.registerListener(this, temperature, SensorManager.SENSOR_DELAY_NORMAL)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(this)
     }
 }
