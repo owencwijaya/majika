@@ -1,5 +1,6 @@
 package com.example.majika.ui.menu
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +34,8 @@ class MenuFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private var fragmentMenuData: List<Menu> = emptyList()
+    private var fragmentFoodData: List<Menu> = emptyList()
+    private var fragmentDrinksData: List<Menu> = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,16 +49,18 @@ class MenuFragment : Fragment() {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
 //        recycle view for menu
-        val menuRv: RecyclerView = binding.menuRv
-        menuRv.layoutManager = LinearLayoutManager(this.requireContext())
-        menuViewModel.menuList.observe(viewLifecycleOwner) {
-            menuRv.adapter = MenuAdapter(it.menuList!!, activity as Context, cartViewModel)
-            fragmentMenuData = it.menuList
+        val foodRv: RecyclerView = binding.foodRv
+        menuViewModel.foodList.observe(viewLifecycleOwner) {
+            foodRv.adapter = MenuAdapter(it.menuList!!, activity as Context, cartViewModel)
+            fragmentFoodData = it.menuList
         }
 
-
+        val drinksRv: RecyclerView = binding.drinksRv
+        menuViewModel.drinksList.observe(viewLifecycleOwner) {
+            drinksRv.adapter = MenuAdapter(it.menuList!!, activity as Context, cartViewModel)
+            fragmentDrinksData = it.menuList
+        }
 
         val menuSearch: SearchView = binding.menuSearch
         menuSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -64,10 +69,16 @@ class MenuFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val filteredList = fragmentMenuData.filter {
+                val filteredFoodList = fragmentFoodData.filter {
                     it.name!!.contains(newText!!, true)
                 }
-                menuRv.adapter = MenuAdapter(filteredList, activity as Context, cartViewModel)
+                foodRv.adapter = MenuAdapter(filteredFoodList, activity as Context, cartViewModel)
+
+                val filteredDrinksList = fragmentDrinksData.filter {
+                    it.name!!.contains(newText!!, true)
+                }
+                drinksRv.adapter = MenuAdapter(filteredDrinksList, activity as Context, cartViewModel)
+
                 return false
             }
         })
@@ -77,5 +88,10 @@ class MenuFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.setTitle("Menu")
     }
 }

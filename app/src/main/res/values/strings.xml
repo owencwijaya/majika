@@ -6,4 +6,6 @@
     <string name="title_cart">Cart</string>
     <string name="database_name">majika_db</string>
     <string name="no_results">No Results</string>
+    <string name="food_menu">Food Menu</string>
+    <string name="beverages_menu">Beverages Menu</string>
 </resources>

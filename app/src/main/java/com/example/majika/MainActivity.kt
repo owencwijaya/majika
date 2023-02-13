@@ -35,4 +35,8 @@ class MainActivity : AppCompatActivity() {
 
         navView.setupWithNavController(navController)
     }
+
+    fun setActionBarTitle(title: String) {
+        supportActionBar?.title = title
+    }
 }

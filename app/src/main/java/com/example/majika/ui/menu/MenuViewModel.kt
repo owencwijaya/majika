@@ -11,8 +11,8 @@ import retrofit2.Response
 
 class MenuViewModel : ViewModel() {
 
-    var _menuList = MutableLiveData<MenuList>().apply {
-        RetrofitClient.getMenuService.getAll().enqueue(
+    var _foodList = MutableLiveData<MenuList>().apply {
+        RetrofitClient.getMenuService.getFood().enqueue(
             object: Callback<MenuList> {
                 override fun onFailure(call : Call<MenuList>, t: Throwable) {
                     t.printStackTrace()
@@ -28,5 +28,24 @@ class MenuViewModel : ViewModel() {
         )
     }
 
-    val menuList: LiveData<MenuList> = _menuList
+    val foodList: LiveData<MenuList> = _foodList
+
+    var _drinksList = MutableLiveData<MenuList>().apply {
+        RetrofitClient.getMenuService.getDrink().enqueue(
+            object: Callback<MenuList> {
+                override fun onFailure(call : Call<MenuList>, t: Throwable) {
+                    t.printStackTrace()
+                }
+
+                override fun onResponse(call: Call<MenuList>, response: Response<MenuList>) {
+                    if (response.isSuccessful) {
+                        System.out.println(response.body())
+                        value = response.body()
+                    }
+                }
+            }
+        )
+    }
+
+    val drinksList: LiveData<MenuList> = _drinksList
 }
