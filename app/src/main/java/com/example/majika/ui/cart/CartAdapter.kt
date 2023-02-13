@@ -25,24 +25,19 @@ class CartAdapter(val cartViewModel: CartViewModel) : ListAdapter<CartItemEntity
         holder.bind(current)
 
         holder.addButton.setOnClickListener() {
-            val newQuantity = current.quantity!! + 1
+            val newQuantity = current.quantity + 1
             cartViewModel.updateQuantity(current, newQuantity)
-            holder.quantity.text = newQuantity.toString()
-            holder.quantity
         }
 
         holder.reduceButton.setOnClickListener() {
-            if (current.quantity == 1) {
+            val newQuantity = current.quantity - 1
+            cartViewModel.updateQuantity(current, newQuantity)
+            if (newQuantity == 0) {
                 cartViewModel.delete(current)
                 holder.quantity.text = "0"
                 holder.quantity.visibility = View.INVISIBLE
                 holder.reduceButton.visibility = View.INVISIBLE
-            } else {
-                val newQuantity = current.quantity!! - 1
-                cartViewModel.updateQuantity(current, newQuantity)
-                holder.quantity.text = newQuantity.toString()
             }
-
         }
     }
     class CartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

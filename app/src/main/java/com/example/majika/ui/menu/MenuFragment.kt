@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.room.RoomDatabase
 import com.example.majika.MajikaApplication
 import com.example.majika.databinding.FragmentMenuBinding
@@ -47,6 +49,7 @@ class MenuFragment : Fragment() {
 
 //        recycle view for menu
         val menuRv: RecyclerView = binding.menuRv
+        menuRv.layoutManager = LinearLayoutManager(this.requireContext())
         menuViewModel.menuList.observe(viewLifecycleOwner) {
             menuRv.adapter = MenuAdapter(it.menuList!!, activity as Context, cartViewModel)
             fragmentMenuData = it.menuList
