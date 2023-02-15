@@ -25,8 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        applicationContext.deleteDatabase("majika_db")
-
+        applicationContext.deleteDatabase(R.string.database_name.toString())
 
 //       initialize bottom navigation view and bottom navigation controller, and merge them
 

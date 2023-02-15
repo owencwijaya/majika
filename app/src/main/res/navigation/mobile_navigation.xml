@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/twibbonFragment">
+    app:startDestination="@id/menuFragment">
     <fragment
         android:id="@+id/branchFragment"
         android:name="com.example.majika.ui.branch.BranchFragment"
-        android:label="fragment_branch"
+        android:label="Branch"
         tools:layout="@layout/fragment_branch" />
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.majika.ui.menu.MenuFragment"
-        android:label="fragment_menu"
+        android:label="Menu"
         tools:layout="@layout/fragment_menu" />
     <fragment
         android:id="@+id/twibbonFragment"
         android:name="com.example.majika.ui.twibbon.TwibbonFragment"
-        android:label="fragment_twibbon"
+        android:label="Twibbon"
         tools:layout="@layout/fragment_twibbon" />
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.majika.ui.cart.CartFragment"
-        android:label="fragment_cart"
+        android:label="Cart"
         tools:layout="@layout/fragment_cart" />
 </navigation>

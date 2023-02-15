@@ -30,6 +30,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.payment.PaymentActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_pembayaran">
+        </activity>
     </application>
 
 </manifest>

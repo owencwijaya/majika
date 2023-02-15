@@ -101,6 +101,7 @@ class MenuFragment : Fragment(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         sensorManager = this.requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        (activity as AppCompatActivity).supportActionBar?.title = "Menu"
 
         // untuk cek apakah ada ambient temperature sensor
         val deviceSensors: List<Sensor> = sensorManager.getSensorList(Sensor.TYPE_AMBIENT_TEMPERATURE)
@@ -125,7 +126,6 @@ class MenuFragment : Fragment(), SensorEventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = "Menu"
     }
 
     override fun onSensorChanged(event: SensorEvent){

@@ -20,6 +20,7 @@
         android:layout_width="257dp"
         android:layout_height="208dp"
         android:layout_marginTop="93dp"
+        android:contentDescription="@string/content_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scan"
@@ -30,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Total pembaharan"
+        android:text="@string/total_pembayaran"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scanPembayaran" />

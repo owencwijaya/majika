@@ -34,6 +34,7 @@ class CartViewModel(private val repository: DataRepository) : ViewModel() {
     fun updateQuantity(cartItem: CartItemEntity, quantity: Int) = viewModelScope.launch {
         repository.updateQuantity(cartItem, quantity)
     }
+
 }
 
 class CartViewModelFactory(private val repository: DataRepository): ViewModelProvider.Factory {
