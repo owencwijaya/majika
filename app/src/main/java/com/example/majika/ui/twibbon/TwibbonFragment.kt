@@ -1,97 +1,130 @@
 package com.example.majika.ui.twibbon
 
-import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Intent
+import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.contract.ActivityResultContracts
+import android.widget.Toast
+import androidx.camera.core.*
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+
 import com.example.majika.databinding.FragmentTwibbonBinding
+import com.google.common.util.concurrent.ListenableFuture
 
 class TwibbonFragment : Fragment() {
-
     private var _binding: FragmentTwibbonBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var cameraProviderFuture : ListenableFuture<ProcessCameraProvider>
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-
-
-//        val twibbonViewModel =
-//            ViewModelProvider(this).get(TwibbonViewModel::class.java)
-
-//        setup view
+    ) : View? {
+        // Inflate the layout for this fragment
         _binding = FragmentTwibbonBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
-//        setup text
-        val textView: TextView = binding.textTwibbon
+        return binding.root
+    }
 
-        textView.text = "testing"
-//        setup button
-        val captureButton: Button = binding.captureButton
-        captureButton.setOnClickListener {
-            takePhoto()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Request camera permissions
+        if (allPermissionsGranted()) {
+            startCamera()
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
+        // Setup the listener for take photo button
+        binding.captureButton.setOnClickListener { takePhoto() }
 
 
-
-
-
-        return root
     }
 
-//    override fun onDestroyView(textView: TextView) {
-//        super.onDestroyView()
-//        _binding = null
-//    }
+    private fun startCamera() {
+//        setup needed variable
+        cameraProviderFuture = ProcessCameraProvider.getInstance(this.requireContext())
+        val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+        val preview : Preview = Preview.Builder().build()
+        val imageCapture : ImageCapture = ImageCapture.Builder().build()
+        val cameraSelector = CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_FRONT).build()
 
-    private val REQUEST_IMAGE_CAPTURE = 1
-override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-
-
-
-    if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
-        val takenImage = data?.extras?.get("data") as Bitmap
-        binding.cameraPreviewView.setImageBitmap(takenImage)
-
-    } else {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-}
-
-    private fun dispatchTakePictureIntent() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        binding camera feed to PreviewView
         try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-        } catch (e: ActivityNotFoundException) {
-            // display error state to the user
+            // Unbind use cases before rebinding
+            cameraProvider.unbindAll()
+            // Bind use cases to camera
+            cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
+            preview?.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+
+        } catch (exc: Exception) {
+            Log.e(TAG, "Use case binding failed", exc)
         }
     }
 
+    private fun takePhoto() {
+//        unbind will stop the camera preview and freezing it
+        cameraProviderFuture = ProcessCameraProvider.getInstance(this.requireContext())
+        val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+        cameraProvider.unbindAll()
 
-    @Override
-    private fun takePhoto(){
-        dispatchTakePictureIntent()
+//        change the button text
+        binding.captureButton.text = "Take Photo Again"
+        binding.captureButton.setOnClickListener { takePhotoAgain() }
     }
 
+    private fun takePhotoAgain() {
+        // Request camera permissions
+        if (allPermissionsGranted()) {
+            startCamera()
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+        }
+        binding.captureButton.text = "Take Photo"
+        binding.captureButton.setOnClickListener { takePhoto() }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isOffline = true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isOffline = false
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(this.requireContext(), it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                Toast.makeText(this.requireContext(), "Permissions not granted by the user.", Toast.LENGTH_SHORT).show()
+//                finish()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+
+    companion object {
+        val TAG = "CameraXFragment"
+        internal const val REQUEST_CODE_PERMISSIONS = 10
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        var isOffline = false // prevent app crash when goes offline
+    }
 }
