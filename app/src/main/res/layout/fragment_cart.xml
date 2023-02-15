@@ -29,26 +29,26 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
+
         <TextView
-            android:id = "@+id/total_price"
+            android:id="@+id/total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:textSize="24sp"
-            android:text="Total: "
             android:layout_weight="10"
             android:elevation="8dp"
-            app:cardUseCompatPadding="true"
-            app:cardElevation="8dp"
+            android:text="Total: "
+            android:textSize="24sp"
             app:cardCornerRadius="8dp"
-        />
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true" />
+
         <Button
-            android:id = "@+id/pay_button"
+            android:id="@+id/pay_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="I GOT NO CASH"
-            />
+            android:text="I GOT NO CASH" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

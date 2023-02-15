@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Majika</string>
+    <string name="title_pembayaran">Pembayaran</string>
     <string name="title_menu">Menu</string>
     <string name="title_twibbon">Twibbon</string>
     <string name="title_branch">Branches</string>
@@ -9,4 +10,7 @@
     <string name="food_menu">Food Menu</string>
     <string name="beverages_menu">Beverages Menu</string>
     <string name="scan">Scan</string>
+    <string name="total_pembayaran">Total Pembayaran %1$d</string>
+    <string name="content_description">Camera Scanner</string>
+    <string name="harga_cart">%1$s %2$s</string>
 </resources>

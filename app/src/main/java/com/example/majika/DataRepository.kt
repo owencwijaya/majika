@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import com.example.majika.db.RoomConfig
 import com.example.majika.db.dao.CartItemDao
 import com.example.majika.db.entity.CartItemEntity
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.Flow
 public class DataRepository(private val cartItemDao: CartItemDao) {
     val cartItems: Flow<List<CartItemEntity>> = cartItemDao.getAll()
     val totalPrice: Flow<Int> = cartItemDao.getTotalPrice()
+    val currency: LiveData<String> = cartItemDao.getCurrency()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

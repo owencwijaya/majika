@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.R
 import com.example.majika.db.entity.CartItemEntity
 import com.example.majika.utils.observeOnce
+import kotlin.coroutines.coroutineContext
 
 class CartAdapter(val cartViewModel: CartViewModel) : ListAdapter<CartItemEntity, CartAdapter.CartViewHolder>(CartComparator()){
 
@@ -44,7 +45,7 @@ class CartAdapter(val cartViewModel: CartViewModel) : ListAdapter<CartItemEntity
         fun bind(cartItemEntity: CartItemEntity?) {
             cartItemEntity?.let{
                 itemView.findViewById<TextView>(R.id.name_cart).text = it.name
-                itemView.findViewById<TextView>(R.id.price_cart).text = it.currency + " " + it.price
+                itemView.findViewById<TextView>(R.id.price_cart).text = "${it.currency} ${it.price}"
                 itemView.findViewById<TextView>(R.id.quantity).text = it.quantity.toString()
                 itemView.findViewById<TextView>(R.id.quantity_buttons).text =
                     cartItemEntity.quantity.toString()
