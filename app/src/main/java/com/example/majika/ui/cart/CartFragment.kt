@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.MajikaApplication
-import com.example.majika.databinding.FragmentCartBinding
 import com.example.majika.ui.payment.PaymentActivity
+import com.example.majika.databinding.FragmentCartBinding
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
@@ -33,8 +32,9 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val root: View = binding.root
         binding.payButton.setOnClickListener{
-            val intent = Intent(this.context, PaymentActivity::class.java)
+            val intent = Intent(this.activity, PaymentActivity::class.java)
             activity?.startActivity(intent)
+            intent.putExtra(PaymentActivity.TOTAL, cartViewModel.totalPrice.value?.toInt())
         }
         (activity as? AppCompatActivity?)?.supportActionBar?.title = "Cart"
         return root

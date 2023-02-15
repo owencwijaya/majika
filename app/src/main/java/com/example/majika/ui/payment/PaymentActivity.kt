@@ -1,26 +1,38 @@
 package com.example.majika.ui.payment
 
-import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
+import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.majika.MajikaApplication
 import com.example.majika.R
 import com.example.majika.databinding.ActivityPaymentBinding
 
 class PaymentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPaymentBinding
-
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    private val paymentViewModel: PaymentViewModel by viewModels {
+        PaymentViewModelFactory((application as MajikaApplication).repository)
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
         val actionBar = supportActionBar
         actionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
         }
+
+        paymentViewModel.totalPrice.observe(this) {total ->
+            binding.totalPembayaran.text = getString(R.string.total_pembayaran, total)
+        }
+
     }
 
+    companion object {
+        const val TOTAL = "total"
+    }
 }
