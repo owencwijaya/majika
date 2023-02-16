@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.MajikaApplication
 import com.example.majika.databinding.FragmentMenuBinding
@@ -39,30 +40,57 @@ class MenuFragment : Fragment(), SensorEventListener {
     private lateinit var sensorManager : SensorManager
     private var temperature: Sensor? = null
 
+    private lateinit var foodAdapter: MenuAdapter
+    private lateinit var drinksAdapter: MenuAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val menuViewModel =
-            ViewModelProvider(this).get(MenuViewModel::class.java)
-
 //        set view in the activity
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+
+        val parentLayout: LinearLayout = binding.parentLayout
+        val searchLayout: LinearLayout = binding.searchLayout
+
+        if (this.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            parentLayout.orientation = LinearLayout.HORIZONTAL
+        } else {
+            parentLayout.orientation = LinearLayout.VERTICAL
+            (searchLayout.layoutParams as LinearLayout.LayoutParams).weight = 10.0f
+        }
+
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 //        recycle view for menu
+        val menuViewModel =
+            ViewModelProvider(this).get(MenuViewModel::class.java)
+
         val foodRv: RecyclerView = binding.foodRv
+        foodAdapter = MenuAdapter(activity as Context, cartViewModel)
+        foodRv.layoutManager = LinearLayoutManager(this.requireContext())
+        foodRv.adapter = foodAdapter
+
         menuViewModel.foodList.observe(viewLifecycleOwner) {
-            foodRv.adapter = MenuAdapter(it.menuList!!, activity as Context, cartViewModel)
+            foodAdapter.setMenuData(it.menuList!!)
             fragmentFoodData = it.menuList
         }
 
         menuViewModel.getFood()
 
         val drinksRv: RecyclerView = binding.drinksRv
+        drinksAdapter = MenuAdapter(activity as Context, cartViewModel)
+        drinksRv.layoutManager = LinearLayoutManager(this.requireContext())
+        drinksRv.adapter = foodAdapter
         menuViewModel.drinksList.observe(viewLifecycleOwner) {
-            drinksRv.adapter = MenuAdapter(it.menuList!!, activity as Context, cartViewModel)
+            drinksAdapter.setMenuData(it.menuList!!)
             fragmentDrinksData = it.menuList
         }
 
@@ -78,28 +106,16 @@ class MenuFragment : Fragment(), SensorEventListener {
                 val filteredFoodList = fragmentFoodData.filter {
                     it.name!!.contains(newText!!, true)
                 }
-                foodRv.adapter = MenuAdapter(filteredFoodList, activity as Context, cartViewModel)
+                foodAdapter.setMenuData(filteredFoodList)
 
                 val filteredDrinksList = fragmentDrinksData.filter {
                     it.name!!.contains(newText!!, true)
                 }
-                drinksRv.adapter = MenuAdapter(filteredDrinksList, activity as Context, cartViewModel)
+                drinksAdapter.setMenuData(filteredDrinksList)
 
                 return false
             }
         })
-
-        val parentLayout: LinearLayout = binding.parentLayout
-        val searchLayout: LinearLayout = binding.searchLayout
-
-        if (this.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            parentLayout.orientation = LinearLayout.HORIZONTAL
-        } else {
-            parentLayout.orientation = LinearLayout.VERTICAL
-            (searchLayout.layoutParams as LinearLayout.LayoutParams).weight = 10.0f
-        }
-
-        return root
     }
 
     override fun onCreate(savedInstanceState: Bundle?){
@@ -127,11 +143,6 @@ class MenuFragment : Fragment(), SensorEventListener {
         super.onDestroyView()
         _binding = null
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun onSensorChanged(event: SensorEvent){
         val temp = event.values[0]
         (activity as AppCompatActivity).supportActionBar?.title = "Menu - $temp"
