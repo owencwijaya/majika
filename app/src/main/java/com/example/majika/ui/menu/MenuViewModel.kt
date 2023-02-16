@@ -5,47 +5,37 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.majika.model.MenuList
 import com.example.majika.utils.RetrofitClient
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MenuViewModel : ViewModel() {
+    var job: Job? = null
+    var foodList = MutableLiveData<MenuList>()
+    var drinksList = MutableLiveData<MenuList>()
 
-    var _foodList = MutableLiveData<MenuList>().apply {
-        RetrofitClient.getMenuService.getFood().enqueue(
-            object: Callback<MenuList> {
-                override fun onFailure(call : Call<MenuList>, t: Throwable) {
-                    t.printStackTrace()
-                }
-
-                override fun onResponse(call: Call<MenuList>, response: Response<MenuList>) {
-                    if (response.isSuccessful) {
-                        System.out.println(response.body())
-                        value = response.body()
-                    }
+    fun getFood(){
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = RetrofitClient.getMenuService.getFood()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    foodList.postValue(response.body())
                 }
             }
-        )
+        }
     }
 
-    val foodList: LiveData<MenuList> = _foodList
-
-    var _drinksList = MutableLiveData<MenuList>().apply {
-        RetrofitClient.getMenuService.getDrink().enqueue(
-            object: Callback<MenuList> {
-                override fun onFailure(call : Call<MenuList>, t: Throwable) {
-                    t.printStackTrace()
-                }
-
-                override fun onResponse(call: Call<MenuList>, response: Response<MenuList>) {
-                    if (response.isSuccessful) {
-                        System.out.println(response.body())
-                        value = response.body()
-                    }
+    fun getDrinks(){
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = RetrofitClient.getMenuService.getDrink()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    drinksList.postValue(response.body())
                 }
             }
-        )
+        }
     }
 
-    val drinksList: LiveData<MenuList> = _drinksList
+
 }

@@ -22,8 +22,8 @@ import com.example.majika.ui.cart.CartViewModel
 import com.example.majika.ui.cart.CartViewModelFactory
 import com.example.majika.utils.observeOnce
 
-class MenuAdapter(val data: List<Menu>, val context: Context, val cartViewModel: CartViewModel) : RecyclerView.Adapter<MenuAdapter.Holder>() {
-    private var menuData: List<Menu> = data
+class MenuAdapter(val context: Context, val cartViewModel: CartViewModel) : RecyclerView.Adapter<MenuAdapter.Holder>() {
+    private var menuData: List<Menu>? = null
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var addButton: ImageButton = itemView.findViewById(R.id.add_button)
         var reduceButton: ImageButton = itemView.findViewById(R.id.reduce_button)
@@ -32,41 +32,43 @@ class MenuAdapter(val data: List<Menu>, val context: Context, val cartViewModel:
         fun bind(menu: Menu?) {
             menu?.let {
                 itemView.findViewById<TextView>(R.id.name).text = it.name
-                itemView.findViewById<TextView>(R.id.price).text =
-                    it.currency + " " + it.price
+                itemView.findViewById<TextView>(R.id.price).text = it.currency + " " + it.price
                 itemView.findViewById<TextView>(R.id.sold).text = it.sold.toString() + " sold"
                 itemView.findViewById<TextView>(R.id.description).text = it.description
 
                 cartViewModel.cartItems.observe(context as AppCompatActivity) { its ->
                     val cartItem = its.find { ite -> ite.name == it.name }
                     if (cartItem != null) {
-                        itemView.findViewById<TextView>(R.id.quantity).visibility = View.VISIBLE
-                        itemView.findViewById<TextView>(R.id.quantity).text =
-                            cartItem.quantity.toString()
-                        itemView.findViewById<ImageButton>(R.id.reduce_button).visibility =
-                            View.VISIBLE
+                        reduceButton.visibility = View.VISIBLE
+                        quantity.text = cartItem.quantity.toString()
+                        quantity.visibility = View.VISIBLE
                     } else {
                         quantity.text = "0"
                     }
                 }
-
             }
         }
     }
+
+    fun setMenuData(menuData: List<Menu>) {
+        this.menuData = menuData
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = menuData?.size ?: 0
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val menu = data[position]
+        val menu = menuData?.get(position)
         holder.bind(menu)
 
         holder.addButton.setOnClickListener() {
-            var cartItem = CartItemEntity(
-                name = menu.name!!,
+            val cartItem = CartItemEntity(
+                name = menu?.name!!,
                 price = menu.price!!,
                 currency = menu.currency!!,
                 quantity = 1
@@ -89,8 +91,8 @@ class MenuAdapter(val data: List<Menu>, val context: Context, val cartViewModel:
         }
 
         holder.reduceButton.setOnClickListener() {
-            var cartItem = CartItemEntity(
-                name = menu.name!!,
+            val cartItem = CartItemEntity(
+                name = menu?.name!!,
                 price = menu.price!!,
                 currency = menu.currency!!,
                 quantity = 1
