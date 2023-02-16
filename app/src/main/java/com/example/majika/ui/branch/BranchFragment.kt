@@ -12,11 +12,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.databinding.FragmentBranchBinding
+import com.example.majika.ui.cart.CartAdapter
 
 class BranchFragment : Fragment() {
 
     private var _binding: FragmentBranchBinding? = null
     private val binding get() = _binding!!
+    private lateinit var adapter: BranchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +29,6 @@ class BranchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val branchViewModel =
-            ViewModelProvider(this).get(BranchViewModel::class.java)
-
         _binding = FragmentBranchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -39,16 +38,15 @@ class BranchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val branchRv: RecyclerView = binding.branchRv
-        val branchViewModel =
-            ViewModelProvider(this).get(BranchViewModel::class.java)
+        val branchViewModel = ViewModelProvider(this).get(BranchViewModel::class.java)
+        adapter = BranchAdapter(this.requireContext())
         branchRv.layoutManager = LinearLayoutManager(this.requireContext())
+        branchRv.adapter = adapter
 
         branchViewModel.branchList.observe(viewLifecycleOwner) {
-            branchRv.adapter = BranchAdapter(it.branchList!!.sortedWith(compareBy({it.name})), activity as Context)
-            binding.branchCount.text = branchRv.adapter!!.itemCount.toString() + " branches"
+            adapter.setBranchList(it.branchList!!)
+            binding.branchCount.text = adapter.itemCount.toString() + " branches"
         }
-
         branchViewModel.getBranches()
-
     }
 }

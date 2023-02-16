@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.R
 import com.example.majika.model.Branch
 
-class BranchAdapter(val data: List<Branch>, val context: Context) : RecyclerView.Adapter<BranchAdapter.Holder>() {
+class BranchAdapter(val context: Context) : RecyclerView.Adapter<BranchAdapter.Holder>() {
+    private var branchList: List<Branch>? = null;
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mapsButton: ImageButton = itemView.findViewById(R.id.maps_button)
         fun bind(branch: Branch?) {
@@ -26,19 +27,24 @@ class BranchAdapter(val data: List<Branch>, val context: Context) : RecyclerView
         }
     }
 
+    fun setBranchList(branchList: List<Branch>) {
+        this.branchList = branchList.sortedWith(compareBy { it.name })
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_branch, parent, false)
         return Holder(view)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = branchList?.size ?: 0
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val branch = data[position]
+        val branch = branchList?.get(position)
         holder.bind(branch)
 
         holder.mapsButton.setOnClickListener {
-            val uri = String.format("geo:%f,%f", branch.latitude, branch.longitude)
+            val uri = String.format("geo:%f,%f", branch?.latitude, branch?.longitude)
 
             val gmmIntentUri = Uri.parse(uri)
 
