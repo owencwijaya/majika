@@ -46,7 +46,6 @@ class BranchAdapter(val data: List<Branch>, val context: Context) : RecyclerView
             mapIntent.setPackage("com.google.android.apps.maps")
 
             context.startActivity(mapIntent)
-
         }
     }
 

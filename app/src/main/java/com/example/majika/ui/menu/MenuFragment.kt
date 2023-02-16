@@ -58,11 +58,15 @@ class MenuFragment : Fragment(), SensorEventListener {
             fragmentFoodData = it.menuList
         }
 
+        menuViewModel.getFood()
+
         val drinksRv: RecyclerView = binding.drinksRv
         menuViewModel.drinksList.observe(viewLifecycleOwner) {
             drinksRv.adapter = MenuAdapter(it.menuList!!, activity as Context, cartViewModel)
             fragmentDrinksData = it.menuList
         }
+
+        menuViewModel.getDrinks()
 
         val menuSearch: SearchView = binding.menuSearch
         menuSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

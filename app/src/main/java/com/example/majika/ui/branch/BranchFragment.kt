@@ -16,10 +16,8 @@ import com.example.majika.databinding.FragmentBranchBinding
 class BranchFragment : Fragment() {
 
     private var _binding: FragmentBranchBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Branch"
@@ -35,16 +33,22 @@ class BranchFragment : Fragment() {
         _binding = FragmentBranchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val branchRv: RecyclerView = binding.branchRv
-        branchRv.layoutManager = LinearLayoutManager(this.requireContext())
-        branchViewModel.branchList.observe(viewLifecycleOwner) {
-            branchRv.adapter = BranchAdapter(it.branchList!!.sortedWith(compareBy({it.name})), activity as Context)
-            binding.branchCount.text = branchRv.adapter!!.itemCount.toString() + " branches"
-        }
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val branchRv: RecyclerView = binding.branchRv
+        val branchViewModel =
+            ViewModelProvider(this).get(BranchViewModel::class.java)
+        branchRv.layoutManager = LinearLayoutManager(this.requireContext())
+
+        branchViewModel.branchList.observe(viewLifecycleOwner) {
+            branchRv.adapter = BranchAdapter(it.branchList!!.sortedWith(compareBy({it.name})), activity as Context)
+            binding.branchCount.text = branchRv.adapter!!.itemCount.toString() + " branches"
+        }
+
+        branchViewModel.getBranches()
+
     }
 }
