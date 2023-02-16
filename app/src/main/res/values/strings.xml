@@ -13,4 +13,7 @@
     <string name="total_pembayaran">Total Pembayaran %1$d</string>
     <string name="content_description">Camera Scanner</string>
     <string name="harga_cart">%1$s %2$s</string>
+    <string name="total_cart">Total: %1$d</string>
+    <string name="sold_menu">%1$d sold</string>
+    <string name="branches_count">%1$d branches</string>
 </resources>

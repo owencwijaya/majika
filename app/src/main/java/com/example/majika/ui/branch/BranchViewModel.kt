@@ -1,15 +1,10 @@
 package com.example.majika.ui.branch
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.majika.model.BranchList
 import com.example.majika.utils.RetrofitClient
 import kotlinx.coroutines.*
-
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class BranchViewModel : ViewModel() {

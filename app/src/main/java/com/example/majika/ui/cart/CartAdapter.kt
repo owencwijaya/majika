@@ -6,15 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.ListAdapter
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.R
 import com.example.majika.db.entity.CartItemEntity
-import com.example.majika.utils.observeOnce
-import kotlin.coroutines.coroutineContext
-
 class CartAdapter(val cartViewModel: CartViewModel) : ListAdapter<CartItemEntity, CartAdapter.CartViewHolder>(CartComparator()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {

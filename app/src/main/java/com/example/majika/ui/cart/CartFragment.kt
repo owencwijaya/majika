@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.example.majika.R
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,12 +45,12 @@ class CartFragment : Fragment() {
         adapter = CartAdapter(cartViewModel)
         cartRecyclerView = binding.cartRecyclerView
         cartRecyclerView.adapter = adapter
-        cartRecyclerView.layoutManager = LinearLayoutManager(this.requireContext());
+        cartRecyclerView.layoutManager = LinearLayoutManager(this.requireContext())
         cartViewModel.cartItems.observe(this.viewLifecycleOwner) { items ->
             items.let { adapter.submitList(it) }
         }
         cartViewModel.totalPrice.observe(this.viewLifecycleOwner) { price ->
-            binding.totalPrice.text = "Total: IDR " + price.toString()
+            binding.totalPrice.text = getString(R.string.total_cart, price)
         }
 
     }

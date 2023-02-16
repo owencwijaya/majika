@@ -1,18 +1,16 @@
 package com.example.majika.ui.branch
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.databinding.FragmentBranchBinding
-import com.example.majika.ui.cart.CartAdapter
+import com.example.majika.R
 
 class BranchFragment : Fragment() {
 
@@ -45,7 +43,7 @@ class BranchFragment : Fragment() {
 
         branchViewModel.branchList.observe(viewLifecycleOwner) {
             adapter.setBranchList(it.branchList!!)
-            binding.branchCount.text = adapter.itemCount.toString() + " branches"
+            binding.branchCount.text = getString(R.string.branches_count, it.branchList.size)
         }
         branchViewModel.getBranches()
     }

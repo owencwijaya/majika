@@ -1,25 +1,18 @@
 package com.example.majika.ui.menu
 
-import android.app.Activity
 import android.content.Context
-import android.media.Image
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.example.majika.MajikaApplication
 import com.example.majika.R
 import com.example.majika.db.entity.CartItemEntity
 import com.example.majika.model.Menu
 import com.example.majika.ui.cart.CartViewModel
-import com.example.majika.ui.cart.CartViewModelFactory
 import com.example.majika.utils.observeOnce
 
 class MenuAdapter(val context: Context, val cartViewModel: CartViewModel) : RecyclerView.Adapter<MenuAdapter.Holder>() {
@@ -32,8 +25,8 @@ class MenuAdapter(val context: Context, val cartViewModel: CartViewModel) : Recy
         fun bind(menu: Menu?) {
             menu?.let {
                 itemView.findViewById<TextView>(R.id.name).text = it.name
-                itemView.findViewById<TextView>(R.id.price).text = it.currency + " " + it.price
-                itemView.findViewById<TextView>(R.id.sold).text = it.sold.toString() + " sold"
+                itemView.findViewById<TextView>(R.id.price).text = "${it.currency} ${it.price}"
+                itemView.findViewById<TextView>(R.id.sold).text = context.resources.getString(R.string.sold_menu, it.sold)
                 itemView.findViewById<TextView>(R.id.description).text = it.description
 
                 cartViewModel.cartItems.observe(context as AppCompatActivity) { its ->
@@ -83,7 +76,7 @@ class MenuAdapter(val context: Context, val cartViewModel: CartViewModel) : Recy
                     holder.quantity.text = "1"
                     holder.reduceButton.visibility = View.VISIBLE
                 } else {
-                    val newQuantity = it[0].quantity!! + 1
+                    val newQuantity = it[0].quantity + 1
                     cartViewModel.updateQuantity(cartItem, newQuantity)
                     holder.quantity.text = newQuantity.toString()
                 }
@@ -107,7 +100,7 @@ class MenuAdapter(val context: Context, val cartViewModel: CartViewModel) : Recy
                     holder.quantity.visibility = View.GONE
                     holder.reduceButton.visibility = View.GONE
                 } else {
-                    val newQuantity = it[0].quantity!! - 1
+                    val newQuantity = it[0].quantity - 1
                     cartViewModel.updateQuantity(cartItem, newQuantity)
                     holder.quantity.text = newQuantity.toString()
                 }

@@ -5,6 +5,7 @@
     android:id="@+id/payment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding = "24dp"
     tools:context=".ui.payment.PaymentActivity">
 
     <TextView
@@ -18,15 +19,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+    <FrameLayout
+        android:id="@+id/scanner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scan"
-        tools:src="@tools:sample/avatars" />
+    />
 
     <TextView
         android:id="@+id/total_pembayaran"
@@ -39,6 +40,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/scanner_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

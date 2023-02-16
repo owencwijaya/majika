@@ -3,6 +3,7 @@ package com.example.majika.utils
 import com.example.majika.BuildConfig
 import com.example.majika.model.BranchList
 import com.example.majika.model.MenuList
+import com.example.majika.model.PaymentStatus
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -10,6 +11,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 object RetrofitClient {
 
@@ -36,6 +40,7 @@ object RetrofitClient {
 
     val getBranchService = retrofit.create(Branches::class.java)
     val getMenuService = retrofit.create(Menu::class.java)
+    val getPaymentService = retrofit.create(Payment::class.java)
 }
 
 interface Branches{
@@ -49,4 +54,9 @@ interface Menu{
 
     @GET("menu/drink")
     suspend fun getDrink(): Response<MenuList>
+}
+
+interface Payment {
+    @POST("payment/{code}")
+    suspend fun getPaymentStatus(@Path("code") code: String): Response<PaymentStatus>
 }

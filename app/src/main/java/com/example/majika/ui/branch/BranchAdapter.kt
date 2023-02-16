@@ -10,10 +10,12 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.R
+import com.example.majika.databinding.ItemBranchBinding
 import com.example.majika.model.Branch
 
 class BranchAdapter(val context: Context) : RecyclerView.Adapter<BranchAdapter.Holder>() {
-    private var branchList: List<Branch>? = null;
+    private var branchList: List<Branch>? = null
+
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mapsButton: ImageButton = itemView.findViewById(R.id.maps_button)
         fun bind(branch: Branch?) {
