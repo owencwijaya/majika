@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.majika.databinding.FragmentBranchBinding
+import com.example.majika.MainActivity
 import com.example.majika.R
+import com.example.majika.databinding.FragmentBranchBinding
 
 class BranchFragment : Fragment() {
 
@@ -20,8 +22,9 @@ class BranchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = "Branch"
+        (activity as MainActivity).setTitle(getString(R.string.title_branch))
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

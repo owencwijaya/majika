@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.majika.MainActivity
 import com.example.majika.MajikaApplication
 import com.example.majika.ui.payment.PaymentActivity
 import com.example.majika.databinding.FragmentCartBinding
@@ -24,6 +25,7 @@ class CartFragment : Fragment() {
     private lateinit var cartRecyclerView: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity as MainActivity).setTitle(getString(R.string.title_cart))
     }
     override fun onCreateView(
         inflater: LayoutInflater,

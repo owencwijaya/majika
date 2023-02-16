@@ -16,4 +16,5 @@
     <string name="total_cart">Total: %1$d</string>
     <string name="sold_menu">%1$d sold</string>
     <string name="branches_count">%1$d branches</string>
+    <string name="temperature">%1$.1f °C</string>
 </resources>

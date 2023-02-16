@@ -1,7 +1,6 @@
 package com.example.majika.ui.twibbon
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +13,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.majika.MainActivity
+import com.example.majika.R
 
 import com.example.majika.databinding.FragmentTwibbonBinding
 import com.google.common.util.concurrent.ListenableFuture
@@ -35,6 +36,11 @@ class TwibbonFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        (activity as MainActivity).setTitle(getString(R.string.title_twibbon))
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,8 +53,6 @@ class TwibbonFragment : Fragment() {
 
         // Setup the listener for take photo button
         binding.captureButton.setOnClickListener { takePhoto() }
-
-
     }
 
     private fun startCamera() {
@@ -102,6 +106,7 @@ class TwibbonFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         isOffline = false
+        (activity as MainActivity).setTitle(getString(R.string.title_twibbon))
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {

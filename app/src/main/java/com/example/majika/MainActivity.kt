@@ -1,7 +1,9 @@
 package com.example.majika
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -11,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.majika.databinding.ActivityMainBinding
 import com.example.majika.ui.cart.CartViewModel
 import com.example.majika.ui.cart.CartViewModelFactory
+import org.w3c.dom.Text
 
 
 //this is the entry point of the app.
@@ -33,9 +36,17 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         navView.setupWithNavController(navController)
+
+        this.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        this.supportActionBar?.setDisplayShowCustomEnabled(true)
+        this.supportActionBar?.setCustomView(R.layout.action_bar)
     }
 
-    fun setActionBarTitle(title: String) {
-        supportActionBar?.title = title
+    fun setTitle(title: String){
+        val view = this.supportActionBar?.customView
+        val titleText: TextView = view!!.findViewById(R.id.action_bar_title)
+        val tempText: TextView = view.findViewById(R.id.temperature_text)
+        titleText.text = title
+        tempText.text = ""
     }
 }
