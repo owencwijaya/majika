@@ -23,8 +23,8 @@ class CartFragment : Fragment() {
     val cartViewModel: CartViewModel by viewModels { CartViewModelFactory((this.requireActivity().application as MajikaApplication).repository) }
     private lateinit var adapter: CartAdapter
     private lateinit var cartRecyclerView: RecyclerView
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         (activity as MainActivity).setTitle(getString(R.string.title_cart))
     }
     override fun onCreateView(
@@ -40,6 +40,7 @@ class CartFragment : Fragment() {
             intent.putExtra(PaymentActivity.TOTAL, cartViewModel.totalPrice.value?.toInt())
         }
         (activity as? AppCompatActivity?)?.supportActionBar?.title = "Cart"
+
         return root
     }
 

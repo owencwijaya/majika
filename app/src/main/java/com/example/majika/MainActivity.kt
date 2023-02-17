@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.majika.databinding.ActivityMainBinding
 import com.example.majika.ui.cart.CartViewModel
 import com.example.majika.ui.cart.CartViewModelFactory
+import com.example.majika.ui.menu.MenuFragment
 import org.w3c.dom.Text
 
 
@@ -27,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         applicationContext.deleteDatabase(R.string.database_name.toString())
 
 //       initialize bottom navigation view and bottom navigation controller, and merge them
@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         this.supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         this.supportActionBar?.setDisplayShowCustomEnabled(true)
         this.supportActionBar?.setCustomView(R.layout.action_bar)
+
     }
 
     fun setTitle(title: String){
@@ -48,5 +49,9 @@ class MainActivity : AppCompatActivity() {
         val tempText: TextView = view.findViewById(R.id.temperature_text)
         titleText.text = title
         tempText.text = ""
+    }
+
+    companion object {
+        const val FRAGMENT = "fragment"
     }
 }

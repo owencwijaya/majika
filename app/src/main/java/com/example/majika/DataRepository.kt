@@ -45,4 +45,10 @@ public class DataRepository(private val cartItemDao: CartItemDao) {
     suspend fun updateQuantity(cartItem: CartItemEntity, quantity: Int){
         cartItemDao.updateQuantity(quantity, cartItem.name, cartItem.price, cartItem.currency)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteCart(){
+        cartItemDao.deleteCart()
+    }
 }

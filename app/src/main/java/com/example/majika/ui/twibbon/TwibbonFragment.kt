@@ -17,6 +17,7 @@ import com.example.majika.MainActivity
 import com.example.majika.R
 
 import com.example.majika.databinding.FragmentTwibbonBinding
+import com.example.majika.ui.menu.MenuFragment
 import com.google.common.util.concurrent.ListenableFuture
 
 class TwibbonFragment : Fragment() {

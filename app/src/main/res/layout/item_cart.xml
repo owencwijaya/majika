@@ -53,7 +53,7 @@
             android:visibility="visible">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="219dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="0dp"
                 android:layout_weight="3"
@@ -72,18 +72,18 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width= "fill_parent"
-                android:layout_height= "wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="7"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/reduce_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/reduce_button_desc"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_reduce"
-                    />
+                    app:srcCompat="@drawable/ic_reduce" />
 
                 <TextView
                     android:id="@+id/quantity_buttons"
@@ -95,11 +95,11 @@
 
                 <ImageButton
                     android:id="@+id/add_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/add_button_desc"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_add"
-                    />
+                    app:srcCompat="@drawable/ic_add" />
             </LinearLayout>
 
 

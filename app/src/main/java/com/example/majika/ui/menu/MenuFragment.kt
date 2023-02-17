@@ -132,7 +132,10 @@ class MenuFragment : Fragment(), SensorEventListener {
         } else {
             Toast.makeText(this.requireActivity(), "No temperature sensor detected!", Toast.LENGTH_SHORT).show()
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
         (activity as MainActivity).setTitle(getString(R.string.title_menu))
     }
 

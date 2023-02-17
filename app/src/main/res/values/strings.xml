@@ -17,4 +17,9 @@
     <string name="sold_menu">%1$d sold</string>
     <string name="branches_count">%1$d branches</string>
     <string name="temperature">%1$.1f °C</string>
+    <string name="add_button_desc">Tombol untuk menambahkan quantity</string>
+    <string name="reduce_button_desc">Tombol untuk mengurangi quantity</string>
+    <string name="success_dialog_msg">Pembayaran berhasil, Anda akan diarahkan ke halaman menu setelah %1$d detik</string>
+    <string name="channel_name">MAJIKA</string>
+    <string name="channel_description">Majika notification channel</string>
 </resources>
