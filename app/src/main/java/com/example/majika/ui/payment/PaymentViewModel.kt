@@ -17,7 +17,7 @@ class PaymentViewModel(private val repository: DataRepository): ViewModel() {
 
     fun getPaymentStatus(code: String){
         if (code.length != 32) paymentStatus.value = PaymentStatus("Code is invalid")
-        job = CoroutineScope(Dispatchers.IO).launch {
+        job = CoroutineScope(Dispatchers.IO).launch(RetrofitClient.handler) {
             val response = RetrofitClient.getPaymentService.getPaymentStatus(code)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {

@@ -108,7 +108,7 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     private fun createNotification(totalBayar: Int) {
         var builder = NotificationCompat.Builder(this, "MAJIKA")
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.ic_cart_black)
             .setContentTitle("Pembayaran Berhasil")
             .setContentText("Berhasil melakukan pembayaran sebesar ${totalBayar}")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

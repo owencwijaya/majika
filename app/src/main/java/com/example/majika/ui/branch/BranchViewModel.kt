@@ -11,7 +11,7 @@ class BranchViewModel : ViewModel() {
     var job: Job? = null
     val branchList = MutableLiveData<BranchList>()
     fun getBranches(){
-        job = CoroutineScope(Dispatchers.IO).launch {
+        job = CoroutineScope(Dispatchers.IO).launch(RetrofitClient.handler) {
             val response = RetrofitClient.getBranchService.getAll()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {

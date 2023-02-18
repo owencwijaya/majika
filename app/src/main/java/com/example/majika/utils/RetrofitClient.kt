@@ -1,9 +1,11 @@
 package com.example.majika.utils
 
+import android.widget.Toast
 import com.example.majika.BuildConfig
 import com.example.majika.model.BranchList
 import com.example.majika.model.MenuList
 import com.example.majika.model.PaymentStatus
+import kotlinx.coroutines.CoroutineExceptionHandler
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -36,6 +38,10 @@ object RetrofitClient {
         val HttpClient = OkHttpClient.Builder().addInterceptor(logging).build()
 
         return HttpClient
+    }
+
+    val handler = CoroutineExceptionHandler{_, exception ->
+
     }
 
     val getBranchService = retrofit.create(Branches::class.java)

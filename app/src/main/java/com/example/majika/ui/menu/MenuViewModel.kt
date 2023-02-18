@@ -16,7 +16,7 @@ class MenuViewModel : ViewModel() {
     var drinksList = MutableLiveData<MenuList>()
 
     fun getFood(){
-        job = CoroutineScope(Dispatchers.IO).launch {
+        job = CoroutineScope(Dispatchers.IO).launch(RetrofitClient.handler) {
             val response = RetrofitClient.getMenuService.getFood()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
@@ -27,7 +27,7 @@ class MenuViewModel : ViewModel() {
     }
 
     fun getDrinks(){
-        job = CoroutineScope(Dispatchers.IO).launch {
+        job = CoroutineScope(Dispatchers.IO).launch(RetrofitClient.handler) {
             val response = RetrofitClient.getMenuService.getDrink()
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
