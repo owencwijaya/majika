@@ -10,7 +10,7 @@
     <string name="food_menu">Food Menu</string>
     <string name="beverages_menu">Beverages Menu</string>
     <string name="scan">Scan</string>
-    <string name="total_pembayaran">Total Pembayaran %1$d</string>
+    <string name="total_pembayaran">Total: %1$d</string>
     <string name="content_description">Camera Scanner</string>
     <string name="harga_cart">%1$s %2$s</string>
     <string name="total_cart">Total: %1$d</string>
@@ -22,4 +22,5 @@
     <string name="success_dialog_msg">Pembayaran berhasil, Anda akan diarahkan ke halaman menu setelah %1$d detik</string>
     <string name="channel_name">MAJIKA</string>
     <string name="channel_description">Majika notification channel</string>
+    <string name="timer">Kembali ke menu</string>
 </resources>

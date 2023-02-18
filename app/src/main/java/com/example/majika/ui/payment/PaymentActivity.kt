@@ -3,6 +3,7 @@ package com.example.majika.ui.payment
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -22,6 +23,7 @@ import com.example.majika.R
 import com.example.majika.databinding.ActivityPaymentBinding
 import com.example.majika.ui.dialog.SuccessDialogFragment
 import com.example.majika.ui.menu.MenuFragment
+import com.example.majika.utils.ManagePermission
 import com.example.majika.utils.observeOnce
 import com.google.zxing.Result
 import kotlinx.coroutines.android.HandlerDispatcher
@@ -43,6 +45,7 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         super.onCreate(savedInstanceState)
         binding = ActivityPaymentBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        createNotificationChannel()
 
         val actionBar = supportActionBar
         actionBar?.apply {
@@ -94,9 +97,8 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
 
     fun handleSuccessfulPayment() {
         paymentViewModel.deleteCart()
-        createNotificationChannel()
-        createNotification(totalBayar)
         this.lifecycleScope.launch {
+            createNotification(totalBayar)
             val newDialog = SuccessDialogFragment()
             newDialog.show(supportFragmentManager, CHANNEL_ID)
             delay(5000)
@@ -107,42 +109,43 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     }
 
     private fun createNotification(totalBayar: Int) {
-        var builder = NotificationCompat.Builder(this, "MAJIKA")
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_cart_black)
             .setContentTitle("Pembayaran Berhasil")
             .setContentText("Berhasil melakukan pembayaran sebesar ${totalBayar}")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        with(NotificationManagerCompat.from(applicationContext)) {
-            if (ActivityCompat.checkSelfPermission(
-                    applicationContext,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                return
-            }
-            notify(1, builder.build())
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+        val managerCompat = NotificationManagerCompat.from(applicationContext)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            managerCompat.notify(1, builder.build())
         }
+
     }
 
     private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.channel_name)
-            val descriptionText = getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
+
+        val name = getString(R.string.channel_name)
+        val descriptionText = getString(R.string.channel_description)
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            description = descriptionText
         }
+        // Register the channel with the system
+        val notificationManager: NotificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 
     companion object {
-        const val TOTAL = "total"
         const val FAILED_PAYMENT = "FAILED"
         const val SUCCESSFUL_PAYMENT = "SUCCESS"
         const val FAILED_MSG = "Pembayaran gagal, harap coba lagi"

@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity() {
         applicationContext.deleteDatabase(R.string.database_name.toString())
         // Ask for permission
         managePermission = ManagePermission(this, PERMISSION_LIST, PERMISSION_REQUEST_CODE)
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            managePermission.checkPermissions()
+        }
 
 //       initialize bottom navigation view and bottom navigation controller, and merge them
 

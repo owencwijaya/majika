@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.majika.R
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.example.majika.MainActivity
 import com.example.majika.MajikaApplication
 import com.example.majika.ui.payment.PaymentActivity
 import com.example.majika.databinding.FragmentCartBinding
+import com.example.majika.utils.observeOnce
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
@@ -35,9 +37,14 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         val root: View = binding.root
         binding.payButton.setOnClickListener{
-            val intent = Intent(this.activity, PaymentActivity::class.java)
-            activity?.startActivity(intent)
-            intent.putExtra(PaymentActivity.TOTAL, cartViewModel.totalPrice.value?.toInt())
+            cartViewModel.totalPrice.observeOnce(this.viewLifecycleOwner) { price ->
+                if (price == 0) {
+                    Toast.makeText(context, "Keranjang kosong!", Toast.LENGTH_SHORT).show()
+                } else {
+                    val intent = Intent(this.activity, PaymentActivity::class.java)
+                    activity?.startActivity(intent)
+                }
+            }
         }
         (activity as? AppCompatActivity?)?.supportActionBar?.title = "Cart"
 

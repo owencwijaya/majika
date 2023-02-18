@@ -12,7 +12,7 @@ class ManagePermission(val activity: Activity, val list: List<String>, val code:
     // check permission
     fun checkPermissions(){
         if (isPermissionGranted() != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(activity, "Please grant the permission request", Toast.LENGTH_SHORT).show()
+            requestPermission()
         }
     }
 
