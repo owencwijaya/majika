@@ -41,6 +41,7 @@ class TwibbonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setTitle(getString(R.string.title_twibbon))
         startCamera()
 
         // Setup the listener for take photo button
@@ -50,7 +51,9 @@ class TwibbonFragment : Fragment() {
     private fun startCamera() {
 //        check permission
         if (managePermission.checkPermissions()) {
+            binding.captureButton.text = "Take Photo"
             startCameraProvider()
+
         }
     }
 
