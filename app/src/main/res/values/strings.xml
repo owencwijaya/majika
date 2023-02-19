@@ -23,4 +23,6 @@
     <string name="channel_name">MAJIKA</string>
     <string name="channel_description">Majika notification channel</string>
     <string name="timer">Kembali ke menu</string>
+    <string name="camera_preview_button_text">Capture</string>
+    <string name="twibbon_image_view">image view</string>
 </resources>
