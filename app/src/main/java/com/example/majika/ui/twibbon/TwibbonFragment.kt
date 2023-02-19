@@ -17,13 +17,14 @@ import com.example.majika.MainActivity
 import com.example.majika.R
 
 import com.example.majika.databinding.FragmentTwibbonBinding
-import com.example.majika.ui.menu.MenuFragment
+import com.example.majika.utils.ManagePermission
 import com.google.common.util.concurrent.ListenableFuture
 
 class TwibbonFragment : Fragment() {
     private var _binding: FragmentTwibbonBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var managePermission: ManagePermission
     private lateinit var cameraProviderFuture : ListenableFuture<ProcessCameraProvider>
 
     override fun onCreateView(
@@ -33,30 +34,27 @@ class TwibbonFragment : Fragment() {
     ) : View? {
         // Inflate the layout for this fragment
         _binding = FragmentTwibbonBinding.inflate(inflater, container, false)
+        managePermission = ManagePermission(activity as MainActivity, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
 
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity).setTitle(getString(R.string.title_twibbon))
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Request camera permissions
-        if (allPermissionsGranted()) {
-            startCamera()
-        } else {
-            ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-        }
+        startCamera()
 
         // Setup the listener for take photo button
         binding.captureButton.setOnClickListener { takePhoto() }
     }
 
     private fun startCamera() {
+//        check permission
+        if (managePermission.checkPermissions()) {
+            startCameraProvider()
+        }
+    }
+
+    private fun startCameraProvider() {
 //        setup needed variable
         cameraProviderFuture = ProcessCameraProvider.getInstance(this.requireContext())
         val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
@@ -73,7 +71,7 @@ class TwibbonFragment : Fragment() {
             preview?.setSurfaceProvider(binding.viewFinder.surfaceProvider)
 
         } catch (exc: Exception) {
-            Log.e(TAG, "Use case binding failed", exc)
+            Log.e("CameraXApp", "Use case binding failed", exc)
         }
     }
 
@@ -89,48 +87,16 @@ class TwibbonFragment : Fragment() {
     }
 
     private fun takePhotoAgain() {
-        // Request camera permissions
-        if (allPermissionsGranted()) {
-            startCamera()
-        } else {
-            ActivityCompat.requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-        }
+        startCamera()
         binding.captureButton.text = "Take Photo"
         binding.captureButton.setOnClickListener { takePhoto() }
     }
 
-    override fun onPause() {
-        super.onPause()
-        isOffline = true
-    }
-
-    override fun onResume() {
-        super.onResume()
-        isOffline = false
-        (activity as MainActivity).setTitle(getString(R.string.title_twibbon))
-    }
-
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(this.requireContext(), it) == PackageManager.PERMISSION_GRANTED
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                Toast.makeText(this.requireContext(), "Permissions not granted by the user.", Toast.LENGTH_SHORT).show()
-//                finish()
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
 
 
+//    It's primarily used to define class level variables and methods called static variables. like const
     companion object {
-        val TAG = "CameraXFragment"
         internal const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-        var isOffline = false // prevent app crash when goes offline
+        private  val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     }
 }

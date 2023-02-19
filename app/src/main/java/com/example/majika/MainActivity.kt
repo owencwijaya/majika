@@ -58,8 +58,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val FRAGMENT = "fragment"
         const val PERMISSION_REQUEST_CODE = 123
-        val PERMISSION_LIST = listOf<String>(
-            android.Manifest.permission.CAMERA,
+        val PERMISSION_LIST = arrayOf(
             android.Manifest.permission.POST_NOTIFICATIONS
         )
     }
