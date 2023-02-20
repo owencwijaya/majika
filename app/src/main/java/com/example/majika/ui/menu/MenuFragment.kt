@@ -91,7 +91,7 @@ class MenuFragment : Fragment(), SensorEventListener {
         val drinksRv: RecyclerView = binding.drinksRv
         drinksAdapter = MenuAdapter(activity as Context, cartViewModel)
         drinksRv.layoutManager = LinearLayoutManager(this.requireContext())
-        drinksRv.adapter = foodAdapter
+        drinksRv.adapter = drinksAdapter
         menuViewModel.drinksList.observe(viewLifecycleOwner) {
             drinksAdapter.setMenuData(it.menuList!!)
             fragmentDrinksData = it.menuList
