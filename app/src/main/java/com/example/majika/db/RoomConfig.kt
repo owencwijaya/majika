@@ -5,11 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.majika.R
 import com.example.majika.db.entity.CartItemEntity
 import com.example.majika.db.dao.CartItemDao
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Database(entities = [CartItemEntity::class], version = 1, exportSchema = false)
 abstract class RoomConfig:RoomDatabase(){
@@ -17,14 +15,14 @@ abstract class RoomConfig:RoomDatabase(){
     private class RoomConfigCallback(val scope: CoroutineScope):RoomDatabase.Callback(){
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
-            INSTANCE?.let {database -> scope.launch {
-                // Populate here if needed
-                var cartItemDao = database.cartItemDao()
-                var cartItemEntity = CartItemEntity(name = "Makanan 1", price = 50000, quantity = 3, currency = "Rp")
-                cartItemDao.insert(cartItemEntity)
-                cartItemEntity = CartItemEntity(name = "Makanan 2", price = 50000, quantity = 3, currency = "Rp")
-                cartItemDao.insert(cartItemEntity)
-            }}
+//            INSTANCE?.let {database -> scope.launch {
+//                // Populate here if needed
+//                var cartItemDao = database.cartItemDao()
+//                var cartItemEntity = CartItemEntity(name = "Makanan 1", price = 50000, quantity = 3, currency = "Rp")
+//                cartItemDao.insert(cartItemEntity)
+//                cartItemEntity = CartItemEntity(name = "Makanan 2", price = 50000, quantity = 3, currency = "Rp")
+//                cartItemDao.insert(cartItemEntity)
+//            }}
         }
     }
 

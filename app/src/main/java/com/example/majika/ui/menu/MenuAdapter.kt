@@ -47,7 +47,6 @@ class MenuAdapter(val context: Context, val cartViewModel: CartViewModel) : Recy
         this.menuData = menuData
         notifyDataSetChanged()
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
         return Holder(view)

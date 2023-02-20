@@ -39,7 +39,7 @@ class CartFragment : Fragment() {
         binding.payButton.setOnClickListener{
             cartViewModel.totalPrice.observeOnce(this.viewLifecycleOwner) { price ->
                 if (price == 0) {
-                    Toast.makeText(context, "Keranjang kosong!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Cart is empty!", Toast.LENGTH_SHORT).show()
                 } else {
                     val intent = Intent(this.activity, PaymentActivity::class.java)
                     activity?.startActivity(intent)
@@ -58,11 +58,20 @@ class CartFragment : Fragment() {
         cartRecyclerView.layoutManager = LinearLayoutManager(this.requireContext())
         cartViewModel.cartItems.observe(this.viewLifecycleOwner) { items ->
             items.let { adapter.submitList(it) }
+
+            if (items.isEmpty()) {
+                cartRecyclerView.visibility = View.GONE
+                binding.paymentTab.visibility = View.GONE
+                binding.cartError.visibility = View.VISIBLE
+            } else {
+                cartRecyclerView.visibility = View.VISIBLE
+                binding.paymentTab.visibility = View.VISIBLE
+                binding.cartError.visibility = View.GONE
+            }
         }
         cartViewModel.totalPrice.observe(this.viewLifecycleOwner) { price ->
             binding.totalPrice.text = getString(R.string.total_cart, price)
         }
-
     }
 
     override fun onResume() {
