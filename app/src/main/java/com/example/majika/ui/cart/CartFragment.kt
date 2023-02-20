@@ -1,5 +1,6 @@
 package com.example.majika.ui.cart
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -46,13 +47,12 @@ class CartFragment : Fragment() {
                 }
             }
         }
-        (activity as? AppCompatActivity?)?.supportActionBar?.title = "Cart"
 
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = CartAdapter(cartViewModel)
+        adapter = CartAdapter(cartViewModel, activity as Context)
         cartRecyclerView = binding.cartRecyclerView
         cartRecyclerView.adapter = adapter
         cartRecyclerView.layoutManager = LinearLayoutManager(this.requireContext())

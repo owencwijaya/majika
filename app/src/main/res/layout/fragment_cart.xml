@@ -9,17 +9,16 @@
     <LinearLayout
         android:id="@+id/recycler_container"
         android:layout_width="match_parent"
-        android:layout_height="617dp"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="48dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cartRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp" />
-
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -31,8 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,7 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_container">
 
         <TextView
             android:id="@+id/total_price"
@@ -63,7 +63,8 @@
             android:layout_marginStart="16dp"
             android:layout_weight="10"
             android:elevation="8dp"
-            android:textSize="24sp"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true" />
@@ -76,4 +77,6 @@
             android:text="@string/pay" />
 
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

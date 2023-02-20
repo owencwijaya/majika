@@ -83,6 +83,14 @@ class MenuFragment : Fragment(), SensorEventListener {
 
         menuViewModel.foodList.observe(viewLifecycleOwner) {
             foodAdapter.setMenuData(it.menuList!!)
+
+            if (it.menuList.isEmpty()) {
+                binding.foodError!!.visibility = View.VISIBLE
+                foodRv.visibility = View.GONE
+            } else {
+                binding.foodError!!.visibility = View.GONE
+                foodRv.visibility = View.VISIBLE
+            }
             fragmentFoodData = it.menuList
         }
 

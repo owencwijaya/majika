@@ -41,11 +41,15 @@ class TwibbonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as MainActivity).setTitle(getString(R.string.title_twibbon))
         startCamera()
 
         // Setup the listener for take photo button
         binding.captureButton.setOnClickListener { takePhoto() }
+    }
+
+    override fun onStart(){
+        super.onStart()
+        (activity as MainActivity).setTitle(getString(R.string.title_twibbon))
     }
 
     private fun startCamera() {

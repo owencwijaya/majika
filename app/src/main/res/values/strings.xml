@@ -12,7 +12,7 @@
     <string name="scan">Scan</string>
     <string name="total_pembayaran">Total: %1$d</string>
     <string name="content_description">Camera Scanner</string>
-    <string name="harga_cart">%1$s %2$s</string>
+    <string name="harga_cart">%1$s %2$d</string>
     <string name="total_cart">Total: %1$d</string>
     <string name="sold_menu">%1$d sold</string>
     <string name="branches_count">%1$d branches</string>
@@ -25,8 +25,12 @@
     <string name="timer">Back to Menu</string>
     <string name="camera_preview_button_text">Capture</string>
     <string name="twibbon_image_view">image view</string>
-    <string name="menu_not_found">No menu found!</string>
-    <string name="empty_cart">Cart is empty!</string>
+    <string name="empty_cart">Cart is empty! :(</string>
     <string name="empty_cart_info">You can add some items from the Menu page!</string>
-    <string name="pay">PROCEED TO PAYMENT</string>
+    <string name="empty_branch">No branches found! :(</string>
+    <string name="empty_branch_info">Please try again later</string>
+    <string name="empty_food">No food found! :(</string>
+    <string name="empty_drinks">No drinks found! :(</string>
+    <string name="pay">PAY NOW</string>
+    <string name="popular_food">Popular food: %1$s</string>
 </resources>

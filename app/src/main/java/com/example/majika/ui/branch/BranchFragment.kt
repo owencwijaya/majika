@@ -22,7 +22,6 @@ class BranchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        (activity as MainActivity).setTitle(getString(R.string.title_branch))
     }
 
     override fun onCreateView(
@@ -38,6 +37,7 @@ class BranchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val branchRv: RecyclerView = binding.branchRv
         val branchViewModel = ViewModelProvider(this).get(BranchViewModel::class.java)
         adapter = BranchAdapter(this.requireContext())
@@ -46,8 +46,20 @@ class BranchFragment : Fragment() {
 
         branchViewModel.branchList.observe(viewLifecycleOwner) {
             adapter.setBranchList(it.branchList!!)
+            if (adapter.itemCount == 0) {
+                binding.branchRv.visibility = View.GONE
+                binding.branchError.visibility = View.VISIBLE
+            } else {
+                binding.branchRv.visibility = View.VISIBLE
+                binding.branchError.visibility = View.GONE
+            }
             binding.branchCount.text = getString(R.string.branches_count, it.branchList.size)
         }
         branchViewModel.getBranches()
+    }
+
+    override fun onStart(){
+        super.onStart()
+        (activity as MainActivity).setTitle(getString(R.string.title_branch))
     }
 }

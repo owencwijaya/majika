@@ -16,6 +16,8 @@ class BranchViewModel : ViewModel() {
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     branchList.postValue(response.body())
+                } else {
+                    branchList.postValue(BranchList())
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.example.majika.ui.cart
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +11,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.majika.R
 import com.example.majika.db.entity.CartItemEntity
-class CartAdapter(val cartViewModel: CartViewModel) : ListAdapter<CartItemEntity, CartAdapter.CartViewHolder>(CartComparator()){
+import com.example.majika.model.Menu
 
+class CartAdapter(val cartViewModel: CartViewModel, val context: Context) : ListAdapter<CartItemEntity, CartAdapter.CartViewHolder>(CartComparator()){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
-        return CartViewHolder.create(parent)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_cart, parent, false)
+        return CartViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int){
@@ -33,24 +36,17 @@ class CartAdapter(val cartViewModel: CartViewModel) : ListAdapter<CartItemEntity
             }
         }
     }
-    class CartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+
+    inner class CartViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var addButton: ImageButton = itemView.findViewById(R.id.add_button)
         var reduceButton: ImageButton = itemView.findViewById(R.id.reduce_button)
         var quantity: TextView = itemView.findViewById(R.id.quantity_buttons)
         fun bind(cartItemEntity: CartItemEntity?) {
             cartItemEntity?.let{
                 itemView.findViewById<TextView>(R.id.name_cart).text = it.name
-                itemView.findViewById<TextView>(R.id.price_cart).text = "${it.currency} ${it.price}"
-                itemView.findViewById<TextView>(R.id.quantity).text = it.quantity.toString()
+                itemView.findViewById<TextView>(R.id.price_cart).text = context.resources.getString(R.string.harga_cart, it.currency, it.price)
                 itemView.findViewById<TextView>(R.id.quantity_buttons).text =
                     cartItemEntity.quantity.toString()
-            }
-        }
-
-        companion object {
-            fun create(parent: ViewGroup): CartViewHolder {
-                val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_cart, parent, false)
-                return CartViewHolder(view)
             }
         }
     }

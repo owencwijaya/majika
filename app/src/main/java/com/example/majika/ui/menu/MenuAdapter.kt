@@ -20,12 +20,12 @@ class MenuAdapter(val context: Context, val cartViewModel: CartViewModel) : Recy
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var addButton: ImageButton = itemView.findViewById(R.id.add_button)
         var reduceButton: ImageButton = itemView.findViewById(R.id.reduce_button)
-        var quantity: TextView = itemView.findViewById(R.id.quantity)
+        var quantity: TextView = itemView.findViewById(R.id.quantity_buttons)
 
         fun bind(menu: Menu?) {
             menu?.let {
                 itemView.findViewById<TextView>(R.id.name).text = it.name
-                itemView.findViewById<TextView>(R.id.price).text = "${it.currency} ${it.price}"
+                itemView.findViewById<TextView>(R.id.price).text = context.resources.getString(R.string.harga_cart, it.currency, it.price)
                 itemView.findViewById<TextView>(R.id.sold).text = context.resources.getString(R.string.sold_menu, it.sold)
                 itemView.findViewById<TextView>(R.id.description).text = it.description
 
