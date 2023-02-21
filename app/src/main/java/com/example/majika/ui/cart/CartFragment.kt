@@ -54,8 +54,10 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter = CartAdapter(cartViewModel, activity as Context)
         cartRecyclerView = binding.cartRecyclerView
+
         cartRecyclerView.adapter = adapter
         cartRecyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+
         cartViewModel.cartItems.observe(this.viewLifecycleOwner) { items ->
             items.let { adapter.submitList(it) }
 

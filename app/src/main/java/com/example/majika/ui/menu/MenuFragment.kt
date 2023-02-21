@@ -55,18 +55,6 @@ class MenuFragment : Fragment(), SensorEventListener {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
-
-        val parentLayout: LinearLayout = binding.parentLayout
-        val searchLayout: LinearLayout = binding.searchLayout
-
-        if (this.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            parentLayout.orientation = LinearLayout.HORIZONTAL
-        } else {
-            parentLayout.orientation = LinearLayout.VERTICAL
-            (searchLayout.layoutParams as LinearLayout.LayoutParams).weight = 10.0f
-        }
-
         return root
     }
 
@@ -76,19 +64,23 @@ class MenuFragment : Fragment(), SensorEventListener {
         val menuViewModel =
             ViewModelProvider(this).get(MenuViewModel::class.java)
 
+        val menuSearch: SearchView = binding.menuSearch
+
         val foodRv: RecyclerView = binding.foodRv
+        val foodError: LinearLayout = binding.foodError
+
         foodAdapter = MenuAdapter(activity as Context, cartViewModel)
         foodRv.layoutManager = LinearLayoutManager(this.requireContext())
         foodRv.adapter = foodAdapter
 
         menuViewModel.foodList.observe(viewLifecycleOwner) {
-            foodAdapter.setMenuData(it.menuList!!)
+            foodAdapter.setMenuData(it.menuList!!.filter{ item -> item.name!!.contains(menuSearch.query!!, true) })
 
-            if (it.menuList.isEmpty()) {
-                binding.foodError!!.visibility = View.VISIBLE
+            if (foodAdapter.itemCount == 0) {
+                foodError.visibility = View.VISIBLE
                 foodRv.visibility = View.GONE
             } else {
-                binding.foodError!!.visibility = View.GONE
+                foodError.visibility = View.GONE
                 foodRv.visibility = View.VISIBLE
             }
             fragmentFoodData = it.menuList
@@ -97,17 +89,27 @@ class MenuFragment : Fragment(), SensorEventListener {
         menuViewModel.getFood()
 
         val drinksRv: RecyclerView = binding.drinksRv
+        val drinksError: LinearLayout = binding.drinksError
+
         drinksAdapter = MenuAdapter(activity as Context, cartViewModel)
         drinksRv.layoutManager = LinearLayoutManager(this.requireContext())
         drinksRv.adapter = drinksAdapter
         menuViewModel.drinksList.observe(viewLifecycleOwner) {
-            drinksAdapter.setMenuData(it.menuList!!)
+            drinksAdapter.setMenuData(it.menuList!!.filter{ item -> item.name!!.contains(menuSearch.query!!, true) })
+
+            if (drinksAdapter.itemCount == 0) {
+                drinksError.visibility = View.VISIBLE
+                drinksRv.visibility = View.GONE
+            } else {
+                drinksError.visibility = View.GONE
+                drinksRv.visibility = View.VISIBLE
+            }
+
             fragmentDrinksData = it.menuList
         }
 
         menuViewModel.getDrinks()
 
-        val menuSearch: SearchView = binding.menuSearch
         menuSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -119,10 +121,27 @@ class MenuFragment : Fragment(), SensorEventListener {
                 }
                 foodAdapter.setMenuData(filteredFoodList)
 
+
+                if (filteredFoodList.isEmpty()) {
+                    foodError.visibility = View.VISIBLE
+                    foodRv.visibility = View.GONE
+                } else {
+                    foodError.visibility = View.GONE
+                    foodRv.visibility = View.VISIBLE
+                }
+
                 val filteredDrinksList = fragmentDrinksData.filter {
                     it.name!!.contains(newText!!, true)
                 }
                 drinksAdapter.setMenuData(filteredDrinksList)
+
+                if (filteredDrinksList.isEmpty()) {
+                    drinksError.visibility = View.VISIBLE
+                    drinksRv.visibility = View.GONE
+                } else {
+                    drinksError.visibility = View.GONE
+                    drinksRv.visibility = View.VISIBLE
+                }
 
                 return false
             }

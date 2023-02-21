@@ -10,27 +10,17 @@
         android:id="@+id/parent_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:id="@+id/search_layout"
+        <SearchView
+            android:id="@+id/menu_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <SearchView
-                android:id="@+id/menu_search"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="2dp"
-                android:padding="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
             android:layout_weight="1"
@@ -60,13 +50,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="400dp"
                     android:layout_marginBottom="10dp"
+                    android:visibility="gone"
                     android:padding="5dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
                 <LinearLayout
                     android:id="@+id/food_error"
                     android:layout_width="fill_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="200dp"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -95,15 +86,16 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/drinks_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="4000dp"
+                    android:layout_height="400dp"
                     android:layout_marginBottom="40dp"
+                    android:visibility="gone"
                     android:padding="5dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
                 <LinearLayout
                     android:id="@+id/drinks_error"
                     android:layout_width="fill_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="200dp"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

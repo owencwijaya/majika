@@ -30,7 +30,7 @@
     <string name="empty_branch">No branches found! :(</string>
     <string name="empty_branch_info">Please try again later</string>
     <string name="empty_food">No food found! :(</string>
-    <string name="empty_drinks">No drinks found! :(</string>
+    <string name="empty_drinks">No beverages found! :(</string>
     <string name="pay">PAY NOW</string>
     <string name="popular_food">Popular food: %1$s</string>
 </resources>
