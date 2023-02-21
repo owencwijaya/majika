@@ -24,6 +24,7 @@
 
             <TextView
                 android:id="@+id/name"
+                android:fontFamily="@font/lexenddeca_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
@@ -31,6 +32,7 @@
 
             <TextView
                 android:id="@+id/price"
+                android:fontFamily="@font/lexenddeca_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -52,12 +54,14 @@
 
                 <TextView
                     android:id="@+id/sold"
+                    android:fontFamily="@font/lexenddeca_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />
 
                 <TextView
                     android:id="@+id/description"
+                    android:fontFamily="@font/lexenddeca_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />

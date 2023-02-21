@@ -48,8 +48,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="@string/food_menu"
+                    android:fontFamily="@font/lexenddeca_bold"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -77,6 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/empty_food"
+                        android:fontFamily="@font/lexenddeca_extrabold"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -85,8 +87,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="@string/beverages_menu"
+                    android:fontFamily="@font/lexenddeca_bold"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -114,6 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/empty_drinks"
+                        android:fontFamily="@font/lexenddeca_extrabold"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>

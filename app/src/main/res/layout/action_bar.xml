@@ -13,6 +13,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_weight="1"
+        android:fontFamily="@font/lexenddeca_bold"
         android:id = "@+id/action_bar_title"/>
 
     <TextView
@@ -22,6 +23,7 @@
         android:textAlignment="viewEnd"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/lexenddeca_bold"
         android:layout_weight="0.5"
     />
 

@@ -25,6 +25,7 @@
 
             <TextView
                 android:id="@+id/name"
+                android:fontFamily="@font/lexenddeca_semibold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -35,6 +36,7 @@
 
         <TextView
             android:id="@+id/popular_food"
+            android:fontFamily="@font/lexenddeca_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -44,6 +46,7 @@
         <TextView
             android:id="@+id/address"
             android:layout_width="match_parent"
+            android:fontFamily="@font/lexenddeca_regular"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp" />
 
@@ -60,12 +63,14 @@
 
                 <TextView
                     android:id="@+id/contact_person"
+                    android:fontFamily="@font/lexenddeca_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />
 
                 <TextView
                     android:id="@+id/phone_number"
+                    android:fontFamily="@font/lexenddeca_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp" />
