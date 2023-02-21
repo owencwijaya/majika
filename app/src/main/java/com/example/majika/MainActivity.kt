@@ -1,5 +1,6 @@
 package com.example.majika
 
+import android.Manifest
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -63,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         this.supportActionBar?.setCustomView(R.layout.action_bar)
 
     }
-
     private fun isLandscape() : Boolean{
 //        helper to check whether the device is in landscape mode or not.
 //        return true if landscape, false if portrait
@@ -81,7 +81,8 @@ class MainActivity : AppCompatActivity() {
         const val FRAGMENT = "fragment"
         const val PERMISSION_REQUEST_CODE = 123
         val PERMISSION_LIST = arrayOf(
-            android.Manifest.permission.POST_NOTIFICATIONS
+            Manifest.permission.CAMERA,
+            Manifest.permission.POST_NOTIFICATIONS
         )
     }
 }

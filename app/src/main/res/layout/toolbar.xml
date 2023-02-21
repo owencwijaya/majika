@@ -21,10 +21,11 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/TextAppearance.MaterialComponents.Headline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/lexend"
         android:text="@string/title_pembayaran"
-        style="@style/TextAppearance.MaterialComponents.Headline3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

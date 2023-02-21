@@ -21,6 +21,7 @@ import com.example.majika.MainActivity
 import com.example.majika.MajikaApplication
 import com.example.majika.R
 import com.example.majika.databinding.ActivityPaymentBinding
+import com.example.majika.model.PaymentStatus
 import com.example.majika.ui.dialog.SuccessDialogFragment
 import com.example.majika.ui.menu.MenuFragment
 import com.example.majika.utils.ManagePermission
@@ -37,6 +38,7 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     private lateinit var qrScanner: ZXingScannerView
     private var totalBayar: Int = 0
     private val CHANNEL_ID = "Majika Pembayaran"
+    private lateinit var managePermission: ManagePermission
 
     private val paymentViewModel: PaymentViewModel by viewModels {
         PaymentViewModelFactory((application as MajikaApplication).repository)
@@ -47,13 +49,21 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         setContentView(binding.root)
         createNotificationChannel()
 
+        managePermission = ManagePermission(this,
+            PERMISSION_LIST,
+            PERMISSION_REQUEST_CODE
+        )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            managePermission.checkPermissions()
+        }
+
         val actionBar = supportActionBar
         actionBar?.apply {
             setDisplayShowHomeEnabled(true)
             setDisplayHomeAsUpEnabled(true)
         }
 
-        paymentViewModel.totalPrice.observe(this) {total ->
+        paymentViewModel.totalPrice.observe(this) { total ->
             binding.totalPembayaran.text = getString(R.string.total_pembayaran, total)
             totalBayar = total
         }
@@ -82,12 +92,16 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     override fun handleResult(res: Result?) {
         paymentViewModel.getPaymentStatus(res?.text.toString())
         paymentViewModel.paymentStatus.observe(this) {it ->
-            // lanjutin di sini mas adit
-            if (it.status.equals(FAILED_PAYMENT)) {
-                Toast.makeText(this, FAILED_MSG, Toast.LENGTH_SHORT).show()
-                qrScanner.resumeCameraPreview(this)
-            } else if (it.status.equals(SUCCESSFUL_PAYMENT)) {
-                handleSuccessfulPayment()
+            if (it is PaymentStatus) {
+                if (it.status.equals(FAILED_PAYMENT)) {
+                    Toast.makeText(this, FAILED_MSG, Toast.LENGTH_SHORT).show()
+                    qrScanner.resumeCameraPreview(this)
+                } else if (it.status.equals(SUCCESSFUL_PAYMENT)) {
+                    handleSuccessfulPayment()
+                } else {
+                    Toast.makeText(this, OTHER_FAILED_MSG, Toast.LENGTH_SHORT).show()
+                    qrScanner.resumeCameraPreview(this)
+                }
             } else {
                 Toast.makeText(this, OTHER_FAILED_MSG, Toast.LENGTH_SHORT).show()
                 qrScanner.resumeCameraPreview(this)
@@ -150,5 +164,9 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         const val SUCCESSFUL_PAYMENT = "SUCCESS"
         const val FAILED_MSG = "Pembayaran gagal, harap coba lagi"
         const val OTHER_FAILED_MSG = "QR Code tidak dikenali"
+        const val PERMISSION_REQUEST_CODE = 123
+        val PERMISSION_LIST = arrayOf(
+            Manifest.permission.CAMERA
+        )
     }
 }

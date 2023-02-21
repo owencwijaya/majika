@@ -22,6 +22,8 @@ class PaymentViewModel(private val repository: DataRepository): ViewModel() {
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     paymentStatus.value = response.body()
+                } else {
+                    paymentStatus.value = PaymentStatus("FAILED")
                 }
             }
         }
