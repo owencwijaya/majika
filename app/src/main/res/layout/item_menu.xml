@@ -79,6 +79,7 @@
                     android:layout_height="48dp"
                     android:contentDescription="@string/reduce_button_desc"
                     android:scaleType="centerInside"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_reduce" />
 
                 <TextView
@@ -87,6 +88,7 @@
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:textSize="20sp"
+                    android:visibility="gone"
                     android:textStyle="bold" />
 
                 <ImageButton
