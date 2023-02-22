@@ -97,6 +97,7 @@ class PaymentActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
                     Toast.makeText(this, FAILED_MSG, Toast.LENGTH_SHORT).show()
                     qrScanner.resumeCameraPreview(this)
                 } else if (it.status.equals(SUCCESSFUL_PAYMENT)) {
+                    qrScanner.stopCamera()
                     handleSuccessfulPayment()
                 } else {
                     Toast.makeText(this, OTHER_FAILED_MSG, Toast.LENGTH_SHORT).show()
