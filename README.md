@@ -25,17 +25,17 @@ Aplikasi ini adalah aplikasi untuk platform android yang berfungsi untuk membeli
 4.  `Menu2`
     ![Menu2](screenshot/Menu2.jpg)
 5.  `Menu-Landscape`
-    ![Menu-Landscape](screenshot/Menu land.jpg)
+    ![Menu-Landscape](screenshot/Menu-land.jpg)
 6.  `Menu-Filtered`
-    ![Menu-Filtered](screenshot/Menu Search.jpg)
+    ![Menu-Filtered](screenshot/Menu-Search.jpg)
 7.  `Payment`
     ![Payment](screenshot/payment.jpg)
 8.  `Payment-Failed`
-    ![Payment-Failed](screenshot/payment fail.jpg)
+    ![Payment-Failed](screenshot/payment-fail.jpg)
 9.  `Payment-Success`
-    ![Payment-Success](screenshot/payment success.jpg)
+    ![Payment-Success](screenshot/payment-success.jpg)
 10. `Twibbon`
-    ![Twibbon](screenshot/twibbon.jpg)
+    ![Twibbon](screenshot/Twibbon.jpg)
 
 ## Pembagian Kerja
 
