@@ -73,7 +73,7 @@ Aplikasi ini adalah aplikasi untuk platform android yang berfungsi untuk membeli
         <tr>
             <td>Christopher Jeffrey Kunadjaja</td>
             <td>13520055</td>
-            <td>??? jam</td>
+            <td>15 jam</td>
             <td>
                 <ul>
                     <li>Membuat fitur <i>twibbon</i></li>
