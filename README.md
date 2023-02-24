@@ -52,7 +52,8 @@ Aplikasi ini adalah aplikasi untuk platform android yang berfungsi untuk membeli
         <tr>
             <th>Nama</th>
             <th>NIM</th>
-            <th>Jumlah Jam</th>
+            <th>Jumlah Jam Persiapan</th>
+            <th>Jumlah Jam Pengerjaan</th>
             <th>Tugas</th>
         </tr>
     </thead>
@@ -60,7 +61,8 @@ Aplikasi ini adalah aplikasi untuk platform android yang berfungsi untuk membeli
         <tr>
             <td>Aditya Prawira Nugroho</td>
             <td>13520049</td>
-            <td>15 jam</td>
+            <td>10 jam</td>
+            <td>21 jam</td>
             <td>
                 <ul>
                     <li>Membuat fitur <i>cart</i> beserta integrasi ke menu</li>
@@ -73,7 +75,8 @@ Aplikasi ini adalah aplikasi untuk platform android yang berfungsi untuk membeli
         <tr>
             <td>Christopher Jeffrey Kunadjaja</td>
             <td>13520055</td>
-            <td>15 jam</td>
+            <td>8 jam</td>
+            <td>20 jam</td>
             <td>
                 <ul>
                     <li>Membuat fitur <i>twibbon</i></li>
@@ -84,7 +87,8 @@ Aplikasi ini adalah aplikasi untuk platform android yang berfungsi untuk membeli
         <tr>
             <td>Owen Christian Wijaya</td>
             <td>13520124</td>
-            <td>18 jam</td>
+            <td>8 jam</td>
+            <td>23 jam</td>
             <td>
                 <ul>
                     <li>Melakukan <i>setup</i> awal</li>
